@@ -21,6 +21,7 @@
         
         $user = new User($fields);
 
+        // Redirect als de user ingelogd is en maak een form zo niet
         $user->redirectLoggedIn();
         $user->createForm();
 
