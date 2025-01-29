@@ -16,7 +16,9 @@
 </head>
 
 <body>
-
+	<?php
+	session_start();
+	?>
 	<nav>
 		<img src="assets/logo.png" alt="logo">
 	</nav>
@@ -41,7 +43,6 @@
 		<button type="button" onclick="showRegisterForm()">Registreren</button>
 	</form>
 
-	<!-- Registreer Formulier -->
 	<!-- Registreer Formulier -->
 	<form action="process/registreer.php" method="post" class="index_page_form registreer_form">
 		<img src="assets/user_icon.jpg">

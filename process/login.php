@@ -13,16 +13,20 @@ if (isset($_POST['username'], $_POST['password'])) {
         exit;
     }
 
-    // Bereid de query voor met de opgehaalde verbinding
-    if ($stmt = $conn->prepare('SELECT id, Wachtwoord, Rol FROM accounts WHERE Gebruikersnaam = ?')) {
-        $stmt->bind_param('s', $_POST['username']);
+    try {
+        // Bereid de query voor met de opgehaalde verbinding
+        $stmt = $conn->prepare('SELECT id, Wachtwoord, Rol FROM accounts WHERE Gebruikersnaam = :username');
+        $stmt->bindParam(':username', $_POST['username'], PDO::PARAM_STR);
         $stmt->execute();
-        $stmt->store_result();
 
-        if ($stmt->num_rows > 0) {
-            $stmt->bind_result($id, $password, $role);
-            $stmt->fetch();
-            
+        // Controleer of er een resultaat is
+        if ($stmt->rowCount() > 0) {
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            $id = $user['id'];
+            $password = $user['Wachtwoord'];
+            $role = $user['Rol'];
+
+            // Vergelijk het wachtwoord
             if (password_verify($_POST['password'], $password)) {
                 session_regenerate_id();
                 $_SESSION['loggedin'] = TRUE;
@@ -59,9 +63,7 @@ if (isset($_POST['username'], $_POST['password'])) {
             header('Location: ../index.php');
             exit;
         }
-
-        $stmt->close();
-    } else {
+    } catch (PDOException $e) {
         $_SESSION['error'] = 'Databasefout, probeer later opnieuw';
         header('Location: ../index.php');
         exit;

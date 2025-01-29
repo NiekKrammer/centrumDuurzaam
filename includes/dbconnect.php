@@ -7,12 +7,15 @@ class Database {
     private $dbname = 'duurzaam';
     private $connection;
 
-    // Constructor maakt de verbinding direct
+    // Constructor maakt de verbinding direct met PDO
     public function __construct() {
-        $this->connection = new mysqli($this->host, $this->user, $this->pass, $this->dbname);
-
-        if ($this->connection->connect_errno) {
-            die('Failed to connect to MySQL: ' . $this->connection->connect_error);
+        try {
+            $dsn = "mysql:host=$this->host;dbname=$this->dbname;charset=utf8mb4";
+            $this->connection = new PDO($dsn, $this->user, $this->pass);
+            // Zet de PDO-foutmodus op exceptions
+            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            die('Failed to connect to MySQL: ' . $e->getMessage());
         }
     }
 
@@ -23,9 +26,8 @@ class Database {
 
     // Sluit de verbinding
     public function disconnect() {
-        if ($this->connection) {
-            $this->connection->close();
-        }
+        $this->connection = null;
     }
 }
+
 ?>

@@ -12,7 +12,10 @@
 
     <nav>
         <img src="../assets/logo.png" alt="logo">
-        <a href="../process/logout.php">Uitloggen</a>
+        <div class="roleTag_loguitBtn">
+            <span>Magazijn</span>
+            <a href="../process/logout.php">Uitloggen</a>
+        </div>
     </nav>
 
 </body>
