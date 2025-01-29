@@ -104,7 +104,9 @@ $categories = $magazijn->getCategories();
     </nav>
 
     <div class="magazijnVoorraad">
-        <a href="directiePagina.php">&lt; Ga terug</a>
+
+    <a href="directiePagina.php">&lt; Ga terug</a>
+
         <h1>Artikelen</h1>
 
         <table border="1">
