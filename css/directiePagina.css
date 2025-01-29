@@ -1,0 +1,32 @@
+
+#directieContainer {
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(150px, 2fr));
+  grid-template-rows: repeat(2, minmax(150px, 2fr));
+  row-gap: 50px;
+  column-gap: 50px;
+  place-items: center;
+}
+
+.directieLinkDivs {
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 15px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  height: 30vh;
+  min-width: 30vw;
+}
+
+.directieLinkButton {
+  background-color: blue;
+  color: white;
+  text-decoration: none;
+  padding: 15px;
+  border-radius: 999px;
+  margin-top: 10px;
+  text-align: center;
+}
