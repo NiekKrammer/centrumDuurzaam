@@ -31,7 +31,7 @@
 <?php
 
 if ($_POST) {
-    $user->validateLoginFields($_POST);
+    $user->loginWorker($_POST);
 }
 
 ?>

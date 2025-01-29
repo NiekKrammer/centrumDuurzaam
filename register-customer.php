@@ -21,7 +21,6 @@
             header("Location: index.php");
         }
 
-
         $fields = [
             ["name" => "name", "formatted" => "Naam", "label" => "Voer in de naam", "type" => "text"],
             ["name" => "address", "formatted" => "Adres", "label" => "Voer in het adres", "type" => "text"],
@@ -60,7 +59,11 @@ include './classes/helpers.php';
 $helper = new Helpers();
 
 if ($_POST) {
-    $user->validateCustomerFields($_POST);
+    if (!empty($_GET["id"])) {
+        $user->registerNewCustomer($_POST, $_GET["id"]);
+    } else {
+        $user->registerNewCustomer($_POST);
+    }
 }
 
 ?>

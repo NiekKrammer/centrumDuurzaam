@@ -57,10 +57,15 @@
 
         ?>
         <form>
+        <a href="?request=true">Wachtwoord vergeten?</a>
     </div>
 </body>
 
 <?php
+
+if (str_contains($_SERVER["REQUEST_URI"], "request=true")) {
+    echo "<a href='" .$user->createSpecialLink(4) . "'>Restore password link</a>";
+}
 
 include './classes/helpers.php';
 
@@ -68,9 +73,9 @@ $helper = new Helpers();
 
 if ($_POST) {
     if (!empty($_GET["id"])) {
-        $user->validateWorkerFields($_POST, $_GET["id"]);
+        $user->registerNewWorker($_POST, $_GET["id"]);
     } else {
-        $user->validateWorkerFields($_POST);
+        $user->registerNewWorker($_POST);
     }
 }
 
