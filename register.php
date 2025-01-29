@@ -37,9 +37,6 @@ include './classes/helpers.php';
 
 $helper = new Helpers();
 
-$helper->userIsLoggedIn("dashboard.php");
-
-
 if ($_POST) {
     $user->validateRegisterFields($_POST);
 }

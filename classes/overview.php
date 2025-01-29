@@ -7,7 +7,7 @@ class Overview {
         include './classes/db.php';
 
         $db = new Database();
-        $this->conn = $db->getConn();
+        $this->conn = $db->getConnection();
     }
 
     public function showTasks() {

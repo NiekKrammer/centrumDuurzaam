@@ -9,9 +9,9 @@
 <body>
     
 <nav>
-		<img src="../assets/logo.png" alt="logo">
-        <a href="../process/logout.php">Uitloggen</a>
-	</nav>
+    <img src="../assets/logo.png" alt="logo">
+    <a href="../process/logout.php">Uitloggen</a>
+</nav>
 
 </body>
 </html>

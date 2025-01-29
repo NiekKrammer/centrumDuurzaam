@@ -2,11 +2,12 @@
 
 class Database {
     private $db = "localhost";
-    private $dbname = "hollow_peaks";
+    private $dbname = "duurzaam";
     private $user = "root";
     private $pass = "";
     public $conn;
 
+    // Maak een connectie met de database
     function __construct() {
         @session_start();
 
@@ -19,11 +20,8 @@ class Database {
         }
     }
 
-    public function getConn() {
+    // Krijg de connectie variable terug
+    public function getConnection() {
         return $this->conn;
     }
-
-    // public function get() {
-    //     $this->conn
-    // }
 }

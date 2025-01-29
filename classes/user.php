@@ -14,7 +14,7 @@ class User {
         include './classes/db.php';
 
         $db = new Database();
-        $this->conn = $db->getConn();
+        $this->conn = $db->getConnection();
     }
 
     public function displayError($name, $message) {
@@ -23,24 +23,24 @@ class User {
     }
 
     public function redirectLoggedIn() {
-        if (!empty($_SESSION["userID"])) {
-            header("location: dashboard.php");
+        if (!empty($_SESSION["role"])) {
+            $this->redirectRolePage($_SESSION["role"]);
         }
     }
 
     public function redirectRolePage($role) {
         switch ($role) {
             case 'directie':
-                header('Location: ../rollenPaginas/directiePagina.php');
+                header('Location: /rollenPaginas/directiePagina.php');
                 exit;
             case 'magazijn':
-                header('Location: ../rollenPaginas/magazijnMedewerkerPagina.php');
+                header('Location: /rollenPaginas/magazijnMedewerkerPagina.php');
                 exit;
             case 'winkelpersoneel':
-                header('Location: ../rollenPaginas/winkelpersoonPagina.php');
+                header('Location: /rollenPaginas/winkelpersoonPagina.php');
                 exit;
             case 'chaffeur':
-                header('Location: ../rollenPaginas/chauffeurPagina.php');
+                header('Location: /rollenPaginas/chauffeurPagina.php');
                 exit;
             default:
                 $_SESSION['error'] = "Onbekende rol: $role";
@@ -72,15 +72,15 @@ class User {
             return;
         }
 
-        if (!password_verify($_POST["password"], $newPassword["wachtwoord"])) {
+        if (!password_verify($_POST["password"], $newPassword["Wachtwoord"])) {
             $this->displayError("password", "Password does not match.");
             return;
         }
 
-        $_SESSION["userID"] = $newPassword["personeel_id"];
-        $_SESSION["role"] = $newPassword["rol"];
+        $_SESSION["userID"] = $newPassword["id"];
+        $_SESSION["role"] = $newPassword["Rol"];
 
-        redirectRolePage($newPassword["rol"]);
+        $this->redirectRolePage($newPassword["Rol"]);
     }
 
     public function validateRegisterFields($postData) {
@@ -101,7 +101,7 @@ class User {
         $password = password_hash($_POST["password"],PASSWORD_DEFAULT);
         $rol = htmlspecialchars($_POST["role"]);
 
-        $registerSql = $this->conn->prepare("SELECT gebruikersnaam FROM personeel WHERE gebruikersnaam = ?");
+        $registerSql = $this->conn->prepare("SELECT Gebruikersnaam FROM accounts WHERE Gebruikersnaam = ?");
         $registerSql->execute([$_POST["username"]]);
         $usernameCheck = $registerSql->fetch();
 
@@ -109,13 +109,13 @@ class User {
             $this->displayError("There is already an account with this username. Please choose a different name");
         }    
 
-        $loginSql = $conn->prepare("INSERT INTO accounts (Gebruikersnaam, Wachtwoord, Rol, Is_geverifieerd) VALUES (?, ?, ?, ?)");
-        $loginSql->execute([$username, $password, $rol, 1]);
-        $insertedID = $conn->lastInsertId();
+        $loginSql = $this->conn->prepare("INSERT INTO accounts (Gebruikersnaam, Wachtwoord, Rol, Is_geverifieerd) VALUES (?, ?, ?, ?)");
+        $loginSql->execute([$username, $password, $rol, "chaffeur"]);
+        $insertedID = $this->conn->lastInsertId();
 
         $_SESSION["userID"] = $insertedID;
-        $_SESSION["role"] = 1;
+        $_SESSION["role"] = "chaffeur";
 
-        redirectRolePage($newPassword["rol"]);
+        $this->redirectRolePage($newPassword["Role"]);
     }
 }
