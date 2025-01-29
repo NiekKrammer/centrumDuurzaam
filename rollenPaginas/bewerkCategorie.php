@@ -54,7 +54,7 @@ $database->disconnect();
         <img src="../assets/logo.png" alt="logo">
         <div class="roleTag_loguitBtn">
             <span>Magazijn</span>
-            <a href="../process/logout.php">Uitloggen</a>
+            <a href="../logout.php">Uitloggen</a>
         </div>
     </nav>
     <div class="bewerkCategorie">

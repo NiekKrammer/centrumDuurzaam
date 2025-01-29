@@ -12,7 +12,7 @@
 
     <nav>
         <img src="../assets/logo.png" alt="logo">
-        <a href="../process/logout.php">Uitloggen</a>
+        <a href="../logout.php">Uitloggen</a>
     </nav>
 
 </body>

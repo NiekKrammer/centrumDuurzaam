@@ -99,7 +99,7 @@ $categories = $magazijn->getCategories();
         <img src="../assets/logo.png" alt="logo">
         <div class="roleTag_loguitBtn">
             <span>Magazijn</span>
-            <a href="../process/logout.php">Uitloggen</a>
+            <a href="../logout.php">Uitloggen</a>
         </div>
     </nav>
 
@@ -172,7 +172,7 @@ $categories = $magazijn->getCategories();
         </form>
 
         <!-- Categorieën beheren -->
-        <h2>Categorieën Beheren</h2>
+        <h2 id="categorymanage">Categorieën Beheren</h2>
         <table border="1">
             <thead>
                 <tr>
