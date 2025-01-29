@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 29 jan 2025 om 09:43
+-- Gegenereerd op: 29 jan 2025 om 15:01
 -- Serverversie: 10.4.32-MariaDB
 -- PHP-versie: 8.2.12
 
@@ -32,18 +32,19 @@ CREATE TABLE `accounts` (
   `Gebruikersnaam` varchar(255) NOT NULL,
   `Wachtwoord` varchar(255) NOT NULL,
   `Rol` varchar(255) NOT NULL,
-  `Is_geverifieerd` tinyint(1) NOT NULL
+  `Is_geverifieerd` tinyint(1) NOT NULL,
+  `restore_id` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `accounts`
 --
 
-INSERT INTO `accounts` (`ID`, `Gebruikersnaam`, `Wachtwoord`, `Rol`, `Is_geverifieerd`) VALUES
-(1, 'directie', '$2y$10$z0O.NrpoBnlEh8k2gDhFCOLpW.lFcOVmNcsMt1IgvsmClyKUpAe7u', 'directie', 1),
-(2, 'magazijn', '$2y$10$rL.wDBv3AuxwDNCTObfRj.Nlf8cKVH6FUc6JaqgMHK8RfZ7yRLB.y', 'magazijn', 1),
-(3, 'winkelpersoneel', '$2y$10$GMjrUV0JiY5PS/ZsqdbuoOy7hxdQsAdCScoOo7qKumB2xTVyKZQze', 'winkelpersoneel', 1),
-(4, 'chaffeur', '$2y$10$wAG9DSLL2yJR8AcscOMAwu3P53YNoS.8MYMqzpO4rZx3ng1cMOpQG', 'chaffeur', 1);
+INSERT INTO `accounts` (`ID`, `Gebruikersnaam`, `Wachtwoord`, `Rol`, `Is_geverifieerd`, `restore_id`) VALUES
+(1, 'directie', '$2y$10$z0O.NrpoBnlEh8k2gDhFCOLpW.lFcOVmNcsMt1IgvsmClyKUpAe7u', 'directie', 1, ''),
+(2, 'magazijn', '$2y$10$rL.wDBv3AuxwDNCTObfRj.Nlf8cKVH6FUc6JaqgMHK8RfZ7yRLB.y', 'magazijn', 1, ''),
+(3, 'winkelpersoneel', '$2y$10$GMjrUV0JiY5PS/ZsqdbuoOy7hxdQsAdCScoOo7qKumB2xTVyKZQze', 'winkelpersoneel', 1, ''),
+(4, 'chaffeur', '$2y$10$yixCQ.2zCg1Ew.oapsxzuu69FQYRVKHuWhjyBjnc8npAm9WRmypDW', 'chaffeur', 1, '');
 
 -- --------------------------------------------------------
 
@@ -83,6 +84,13 @@ CREATE TABLE `klant` (
   `telefoon` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `klant`
+--
+
+INSERT INTO `klant` (`id`, `naam`, `adres`, `plaats`, `telefoon`, `email`) VALUES
+(0, 'Jan', 'Janstraat1', 'Janban', '06123456789', 'jan@email.com');
 
 -- --------------------------------------------------------
 
@@ -205,7 +213,7 @@ ALTER TABLE `voorraad`
 -- AUTO_INCREMENT voor een tabel `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT voor een tabel `artikel`
