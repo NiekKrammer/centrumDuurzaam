@@ -14,7 +14,14 @@
         <?php
         
         include './classes/user.php';
-        
+
+        $user = new User();
+
+        if (empty($_SESSION["role"])) {
+            header("Location: index.php");
+        }
+
+
         $fields = [
             ["name" => "name", "formatted" => "Naam", "label" => "Voer in de naam", "type" => "text"],
             ["name" => "address", "formatted" => "Adres", "label" => "Voer in het adres", "type" => "text"],
@@ -22,8 +29,15 @@
             ["name" => "telephone", "formatted" => "Telefoonnummer", "label" => "Voer in het telefoonnummer", "type" => "text"],
             ["name" => "email", "formatted" => "Email", "label" => "Voer in de email", "type" => "text"],
         ];
-        
-        $user = new User($fields);
+
+        if ($_GET["action"] == "edit") {
+            $userData = $user->getEditData("naam, adres, plaats, telefoon, email", "klant", "id = ?", [htmlspecialchars($_GET["id"])]);
+            for ($i = 0; $i < count($fields); $i++) {
+                $fields[$i]["value"] = $userData[$i];
+            }
+        }
+
+        $user->fields = $fields;
 
         $user->createForm();
 

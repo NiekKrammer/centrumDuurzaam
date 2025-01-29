@@ -11,8 +11,13 @@ trait FormTrait {
                 $label = $field['label'];
                 $name = $field['name'];
                 echo "<label>$label</label><br>
-                <label class='errorMessage' id='{$name}Error'></label>
-                <input type='$name' name='$name'></input><br>";
+                <label class='errorMessage' id='{$name}Error'></label>";
+                if (!empty($field["value"])) {
+                    $value = $field["value"];
+                    echo "<input type='$name' name='$name' value='$value'></input><br>";
+                } else {
+                    echo "<input type='$name' name='$name'></input><br>";
+                }
             }
         }
     }

@@ -8,7 +8,7 @@ class User {
 
     use FormTrait;
 
-    function __construct($fields) {
+    function __construct($fields = []) {
         $this->fields = $fields;
 
         include './classes/db.php';
@@ -48,6 +48,13 @@ class User {
                 exit;
         }
     }
+
+    public function getEditData($fields, $table, $where, $params) {
+        $dataSql = $this->conn->prepare("SELECT " . $fields . " FROM " . $table . " WHERE " . $where);
+        $dataSql->execute($params);
+        return $dataSql->fetch();
+    }
+
 
     public function validateLoginFields($postData) {
         $isEmpty = false;
