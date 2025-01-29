@@ -1,5 +1,5 @@
 <?php
-require '../config/dbconnect.php';
+require '../classes/db.php';
 require '../models/Magazijn.php';
 
 $database = new Database();

@@ -1,6 +1,6 @@
 <?php
 // Include database connection
-include_once '../config/dbconnect.php';
+include_once '../classes/db.php';
 
 // Maak verbinding met de database via de Database class
 $database = new Database();
