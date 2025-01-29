@@ -37,7 +37,7 @@
             // Check of er een account is
             $userData = $user->getEditData("naam, adres, plaats, telefoon, email", "klant", "id = ?", [htmlspecialchars($_GET["id"])]);
             if (!empty($userData)) {
-                header("Location: " . $_SERVER['HTTP_REFERER']);
+                header("Location: register-customer.php");
             }
 
             // Loop door de fields en automatisch vul in de velden

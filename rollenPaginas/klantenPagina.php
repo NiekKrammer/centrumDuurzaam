@@ -22,10 +22,15 @@ if($num > 0) {
     echo "<th>Plaats</th>";
     echo "<th>Telefoon</th>";
     echo "<th>Email</th>";
+    echo "<th>Edit</th>";
+    echo "<th>Delete</th>";
     echo "</tr>";
 
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
+        // ! Dit werkt nog niet
+        $editLink = "../register-customer.php?action=edit&id=" . $id;
+        $deleteLink = "../register-customer.php?action=delete&id=" . $id;
         echo "<tr>";
         echo "<td>{$id}</td>";
         echo "<td>{$naam}</td>";
@@ -33,6 +38,8 @@ if($num > 0) {
         echo "<td>{$plaats}</td>";
         echo "<td>{$telefoon}</td>";
         echo "<td>{$email}</td>";
+        echo "<th><form action='$editLink' method='get'><button type='submit'>EDIT</button></form></th>";
+        echo "<th><a href='$deleteLink'>DELETE</a></th>";
         echo "</tr>";
     }
 
