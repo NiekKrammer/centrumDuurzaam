@@ -13,11 +13,14 @@
     <nav>
         <img src="../assets/logo.png" alt="logo">
         <div class="roleTag_loguitBtn">
-            <span>Magazijn</span>
+            <span>Directie</span>
             <a href="../process/logout.php">Uitloggen</a>
         </div>
     </nav>
 
+    <footer>
+        <p>© centrumDuurzaam</p>
+    </footer>
 </body>
 
 </html>

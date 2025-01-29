@@ -64,6 +64,7 @@
 			<option value="magazijn">Magazijn medewerker</option>
 			<option value="winkelpersoneel">Winkelpersoon</option>
 			<option value="chaffeur">Chaffeur</option>
+			<option value="chaffeur">Klant</option>
 		</select>
 
 		<label>

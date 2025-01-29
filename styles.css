@@ -15,7 +15,7 @@ body {
   min-height: 100dvh;
 }
 
-h1 {
+h1, h2 {
   font-size: 50px;
   font-weight: 700;
   background-size: 200%;
@@ -190,6 +190,24 @@ nav {
   }
 }
 
+/* --- magazijn pagina --- */
+.magazijnVoorraad {
+  margin: 0 40px;
+
+  & h1 {
+    text-align: left;
+  }
+
+  & h2 {
+    text-align: left;
+    margin-top: 50px;
+    font-size: 30px;
+  }
+}
+
+.bewerkCategorie {
+  margin: 0 40px;
+}
 
 /* --- footer --- */
 footer {

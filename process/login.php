@@ -1,6 +1,6 @@
 <?php
 session_start();
-require '../includes/dbconnect.php';
+require '../config/dbconnect.php';
 
 // Initialiseer de databaseklasse en haal de connectie op
 $db = new Database();
