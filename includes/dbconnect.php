@@ -4,7 +4,7 @@ class Database {
     private $host = 'localhost';
     private $user = 'root';
     private $pass = '';
-    private $dbname = 'oop-examen';
+    private $dbname = 'duurzaam';
     private $connection;
 
     // Constructor maakt de verbinding direct

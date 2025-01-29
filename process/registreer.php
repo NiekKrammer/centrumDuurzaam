@@ -5,23 +5,25 @@ require '../includes/dbconnect.php';
 $db = new Database();
 $conn = $db->getConnection();
 
-if (isset($_POST['gebruikersnaam'], $_POST['wachtwoord'], $_POST['adres'], $_POST['telefoonnummer'], $_POST['woonplaats'])) {
-    $gebruikersnaam = $_POST['gebruikersnaam'];
+if (isset($_POST['gebruikersnaam'], $_POST['wachtwoord'], $_POST['rol'])) {
+    $gebruikersnaam = trim($_POST['gebruikersnaam']);
     $wachtwoord = $_POST['wachtwoord'];
-    $adres = $_POST['adres'];
-    $telefoonnummer = $_POST['telefoonnummer'];
-    $woonplaats = $_POST['woonplaats'];
+    $rol = $_POST['rol'];
 
-    if (empty($gebruikersnaam) || empty($wachtwoord) || empty($adres) || empty($telefoonnummer) || empty($woonplaats)) {
+    // Controleer of velden zijn ingevuld
+    if (empty($gebruikersnaam) || empty($wachtwoord) || empty($rol)) {
         $_SESSION['error'] = 'Vul alle velden in';
         header('Location: ../index.php'); 
         exit;
     }   
 
+    // Wachtwoord hash genereren
     $hashedPassword = password_hash($wachtwoord, PASSWORD_DEFAULT);
 
-    $stmt = $conn->prepare("INSERT INTO accounts (Naam, Gebruikersnaam, Wachtwoord, Adres, Telefoonnummer, Woonplaats) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param('ssssss', $gebruikersnaam, $gebruikersnaam, $hashedPassword, $adres, $telefoonnummer, $woonplaats );
+    // Databasequery om gebruiker te registreren
+    $stmt = $conn->prepare("INSERT INTO accounts (Gebruikersnaam, Wachtwoord, Rol) VALUES (?, ?, ?)");
+    $stmt->bind_param('sss', $gebruikersnaam, $hashedPassword, $rol);
+
     if ($stmt->execute()) {
         $_SESSION['success_message'] = 'Registratie voltooid! Je kunt nu inloggen.';
         header('Location: ../index.php');

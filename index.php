@@ -18,7 +18,7 @@
 <body>
 
 	<nav>
-		<h1>Login</h1>
+		<img src="assets/logo.png" alt="logo">
 	</nav>
 
 	<!-- Login Formulier -->
@@ -38,7 +38,7 @@
 		<input type="text" name="username" placeholder="Gebruikersnaam" required>
 		<input type="password" name="password" placeholder="Wachtwoord" required>
 		<input type="submit" value="Inloggen">
-		<button onclick="showRegisterForm()">Registreren</button>
+		<button type="button" onclick="showRegisterForm()">Registreren</button>
 	</form>
 
 	<!-- Registreer Formulier -->
@@ -54,16 +54,21 @@
 		?>
 		<input type="text" name="gebruikersnaam" placeholder="Gebruikersnaam" required>
 		<input type="password" name="wachtwoord" placeholder="Wachtwoord" required>
-		<input type="text" name="adres" placeholder="Adres" required>
-		<input type="text" name="telefoonnummer" placeholder="Telefoonnummer" required>
-		<input type="text" name="woonplaats" placeholder="Woonplaats" required>
+
+		<!-- Dropdown voor rolkeuze -->
+		<select name="rol" required>
+			<option value="">Selecteer een rol</option>
+			<option value="directie">Directie</option>
+			<option value="magazijn">Magazijn medewerker</option>
+			<option value="winkelpersoneel">Winkelpersoon</option>
+			<option value="chaffeur">Chaffeur</option>
+		</select>
+
 		<input type="submit" value="Registreren">
 		<button type="button" onclick="showLoginForm()">Terug naar inloggen</button>
 	</form>
 
-
-	<script src="script.js">
-	</script>
+	<script src="script.js"></script>
 
 </body>
 

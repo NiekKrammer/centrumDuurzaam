@@ -22,6 +22,7 @@ if (isset($_POST['username'], $_POST['password'])) {
         if ($stmt->num_rows > 0) {
             $stmt->bind_result($id, $password, $role);
             $stmt->fetch();
+            
             if (password_verify($_POST['password'], $password)) {
                 session_regenerate_id();
                 $_SESSION['loggedin'] = TRUE;
@@ -30,29 +31,40 @@ if (isset($_POST['username'], $_POST['password'])) {
                 $_SESSION['role'] = $role;
 
                 // Stuur de gebruiker naar de juiste pagina op basis van de rol
-                // switch ($role) {
-                //     case 'Beheerder':
-                //         header('Location: ../rollenPaginas/beheerderPagina.php');
-                //         break;
-                //     case 'Manager':
-                //         header('Location: ../rollenPaginas/managerPagina.php');
-                //         break;
-                //     case 'Monteur':
-                //         header('Location: ../rollenPaginas/monteurPagina.php');
-                //         break;
-                //     default:
-                //         header('Location: ../index.php');
-                // }
-
-                header('Location: ../home.php');
+                switch ($role) {
+                    case 'directie':
+                        header('Location: ../rollenPaginas/directiePagina.php');
+                        exit;
+                    case 'magazijn':
+                        header('Location: ../rollenPaginas/magazijnMedewerkerPagina.php');
+                        exit;
+                    case 'winkelpersoneel':
+                        header('Location: ../rollenPaginas/winkelpersoonPagina.php');
+                        exit;
+                    case 'chaffeur':
+                        header('Location: ../rollenPaginas/chauffeurPagina.php');
+                        exit;
+                    default:
+                        $_SESSION['error'] = "Onbekende rol: $role";
+                        header('Location: ../index.php');
+                        exit;
+                }
+            } else {
+                $_SESSION['error'] = 'Ongeldig wachtwoord';
+                header('Location: ../index.php');
                 exit;
             }
+        } else {
+            $_SESSION['error'] = 'Gebruiker niet gevonden';
+            header('Location: ../index.php');
+            exit;
         }
-        $_SESSION['error'] = 'Ongeldige inloggegevens';
-        header('Location: ../index.php');
-        exit;
 
         $stmt->close();
+    } else {
+        $_SESSION['error'] = 'Databasefout, probeer later opnieuw';
+        header('Location: ../index.php');
+        exit;
     }
 }
 
