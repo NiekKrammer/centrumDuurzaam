@@ -24,4 +24,9 @@ class Database {
     public function getConnection() {
         return $this->conn;
     }
+
+    // Sluit de verbinding
+    public function disconnect() {
+        $this->connection = null;
+    }
 }
