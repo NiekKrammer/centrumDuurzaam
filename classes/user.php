@@ -55,6 +55,12 @@ class User {
         return $dataSql->fetch();
     }
 
+    public function deleteAccount($table, $where, $params) {
+        $dataSql = $this->conn->prepare("DELETE FROM " . $table . " WHERE " . $where);
+        $dataSql->execute($params);
+        return $dataSql->fetch();
+    }
+
 
     public function validateLoginFields($postData) {
         $isEmpty = false;

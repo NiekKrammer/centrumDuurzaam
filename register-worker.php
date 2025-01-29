@@ -10,7 +10,7 @@
 <body>
     <img id="logo" src="./assets/logo.png" alt="Logo.png">
     <div class="login-container">
-        <h2>Nieuw account</h2>
+        <?php if (empty($_GET["id"])) { echo "<h2>Nieuw account</h2>";} else { echo "<h2>Edit worker ID " . $_GET["id"] . "</h2>";}?>
         <form method="post">
         <?php
 
@@ -48,6 +48,9 @@
             $fields[0]["value"] = $userData["Gebruikersnaam"];
             unset($fields[1]);
             $user->fields = $fields;
+        } else if (isset($_GET["action"]) && $_GET["action"] == "delete") {
+            $user->deleteAccount("accounts", "ID = ?", [htmlspecialchars($_GET["id"])]);
+            header("Location: " . "register-worker.php");
         }
         
         $user->createForm();
