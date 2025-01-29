@@ -36,16 +36,16 @@ class User {
     public function redirectRolePage($role) {
         switch ($role) {
             case 'directie':
-                header('Location: /rollenPaginas/directiePagina.php');
+                header('Location: ./rollenPaginas/directiePagina.php');
                 exit;
             case 'magazijn':
-                header('Location: /rollenPaginas/magazijnMedewerkerPagina.php');
+                header('Location: ./rollenPaginas/magazijnMedewerkerPagina.php');
                 exit;
             case 'winkelpersoneel':
-                header('Location: /rollenPaginas/winkelpersoonPagina.php');
+                header('Location: ./rollenPaginas/winkelpersoonPagina.php');
                 exit;
             case 'chaffeur':
-                header('Location: /rollenPaginas/chauffeurPagina.php');
+                header('Location: ./rollenPaginas/chauffeurPagina.php');
                 exit;
             default:
                 $_SESSION['error'] = "Onbekende rol: $role";
