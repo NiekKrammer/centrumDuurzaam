@@ -56,22 +56,30 @@
         $user->createForm();
 
         ?>
+        <button type="submit" name="request" value="true">Wachtwoord vergeten?</button>
         <form>
-        <a href="?request=true">Wachtwoord vergeten?</a>
     </div>
 </body>
 
 <?php
 
-if (str_contains($_SERVER["REQUEST_URI"], "request=true")) {
-    echo "<a href='" .$user->createSpecialLink(4) . "'>Restore password link</a>";
-}
 
 include './classes/helpers.php';
 
 $helper = new Helpers();
 
 if ($_POST) {
+    if (!empty($_POST["username"]) && isset($_POST["request"])) {
+        $dataSql = $user->conn->prepare("SELECT ID FROM accounts WHERE Gebruikersnaam = ?");
+        $dataSql->execute([$_POST["username"]]);
+        $gottenID = $dataSql->fetch();
+
+        if (!empty($gottenID)) {
+            echo "<a href='" . $user->createSpecialLink($gottenID["ID"]) . "'>Restore password link</a>";
+        }
+    
+    }
+
     if (!empty($_GET["id"])) {
         $user->registerNewWorker($_POST, $_GET["id"]);
     } else {
