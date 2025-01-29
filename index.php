@@ -42,6 +42,7 @@
 	</form>
 
 	<!-- Registreer Formulier -->
+	<!-- Registreer Formulier -->
 	<form action="process/registreer.php" method="post" class="index_page_form registreer_form">
 		<img src="assets/user_icon.jpg">
 		<h2>Registreren</h2>
@@ -64,9 +65,14 @@
 			<option value="chaffeur">Chaffeur</option>
 		</select>
 
+		<label>
+			<input type="checkbox" name="geverifieerd" required> Ik ben geverifieerd en ga akkoord met de voorwaarden.
+		</label>
+
 		<input type="submit" value="Registreren">
 		<button type="button" onclick="showLoginForm()">Terug naar inloggen</button>
 	</form>
+
 
 	<script src="script.js"></script>
 
