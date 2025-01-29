@@ -197,3 +197,12 @@ footer {
   margin-top: auto;
   padding-top: 30px;
 }
+
+.errorMessage {
+  color: red;
+}
+
+#logo {
+  height: 100px;
+  width: 100px;
+}

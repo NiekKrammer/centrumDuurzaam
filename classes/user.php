@@ -83,7 +83,7 @@ class User {
         $this->redirectRolePage($newPassword["Rol"]);
     }
 
-    public function validateRegisterFields($postData) {
+    public function validateWorkerFields($postData) {
         $isEmpty = false;
         
         foreach ($this->fields as $field) {
@@ -110,12 +110,36 @@ class User {
         }    
 
         $loginSql = $this->conn->prepare("INSERT INTO accounts (Gebruikersnaam, Wachtwoord, Rol, Is_geverifieerd) VALUES (?, ?, ?, ?)");
-        $loginSql->execute([$username, $password, $rol, "chaffeur"]);
+        $loginSql->execute([$username, $password, $rol, 1]);
         $insertedID = $this->conn->lastInsertId();
+    }
 
-        $_SESSION["userID"] = $insertedID;
-        $_SESSION["role"] = "chaffeur";
+    public function validateCustomerFields($postData, $setSession = true) {
+        $isEmpty = false;
+        
+        foreach ($this->fields as $field) {
+            if (!isset($_POST[$field["name"]]) || empty($_POST[$field["name"]])) {
+                $isEmpty = true;
+                $this->displayError($field["name"], $field["formatted"] . " is leeg.");
+            }
+        }
 
-        $this->redirectRolePage($newPassword["Role"]);
+        if ($isEmpty) {
+            return;
+        }
+        
+        $email = htmlspecialchars($_POST["email"]);
+
+        $registerSql = $this->conn->prepare("SELECT email FROM klant WHERE email = ?");
+        $registerSql->execute([$email]);
+        $emailCheck = $registerSql->fetch();
+
+        if (!empty($emailCheck)) {
+            $this->displayError("There is already an account with this email. Please choose a different email");
+        }    
+
+        $loginSql = $this->conn->prepare("INSERT INTO klant (naam, adres, plaats, telefoon, email) VALUES (?, ?, ?, ?, ?)");
+        $loginSql->execute([$_POST["name"], $_POST["address"], $_POST["place"], $_POST["telephone"], $email]);
+        $insertedID = $this->conn->lastInsertId();
     }
 }
