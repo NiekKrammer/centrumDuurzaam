@@ -31,7 +31,7 @@ h1, h2 {
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-  animation: text 10s linear infinite both;
+  animation: text 12s linear infinite both;
   margin-bottom: 12px;
 
   & p {
@@ -81,22 +81,7 @@ button:focus {
   }
 }
 
-/* --- herosection --- */
-& .herosection {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 100px;
-
-  & img {
-    width: 400px;
-    height: 400px;
-    object-fit: cover;
-  }
-}
-
+/* --- nav --- */
 nav {
   display: flex;
   justify-content: space-between;
@@ -130,6 +115,13 @@ nav {
 }
 
 /* --- index pagina --- */
+.hero-content p {
+  text-align: center;
+  margin: auto;
+  margin-bottom: 30px;
+  max-width: 500px;
+}
+
 .index_page_form {
   display: flex;
   flex-direction: column;

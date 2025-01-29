@@ -13,17 +13,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_artikel'])) {
     $prijs_ex_btw = $_POST['prijs_ex_btw'];
     $aantal = $_POST['aantal'];
     $locatie = $_POST['locatie'];
+    $status = $_POST['status'];
 
-    // Debugging statements
+    // Debugging Errors
     error_log("ID: $id");
     error_log("Naam: $naam");
     error_log("Categorie ID: $categorie_id");
     error_log("Prijs ex BTW: $prijs_ex_btw");
     error_log("Aantal: $aantal");
     error_log("Locatie: $locatie");
+    error_log("Status: $status");
 
     if ($magazijn->categoryExists($categorie_id)) {
-        if ($magazijn->updateArtikel($id, $categorie_id, $naam, $prijs_ex_btw, $aantal, $locatie)) {
+        if ($magazijn->updateArtikel($id, $categorie_id, $naam, $prijs_ex_btw, $aantal, $locatie, $status)) {
             error_log("Artikel succesvol bijgewerkt.");
             header("Location: magazijnMedewerkerPagina.php");
             exit();
@@ -53,12 +55,14 @@ if (isset($_GET['id'])) {
 
 <!DOCTYPE html>
 <html lang="nl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../styles.css" rel="stylesheet" type="text/css">
     <title>Artikel Bewerken</title>
 </head>
+
 <body>
 
     <nav>
@@ -71,7 +75,7 @@ if (isset($_GET['id'])) {
 
     <div class="magazijnVoorraad">
         <a href="magazijnMedewerkerPagina.php">&lt; Terug</a>
-        
+
         <h1>Artikel Bewerken</h1>
 
         <form action="" method="post">
@@ -88,14 +92,29 @@ if (isset($_GET['id'])) {
             </select>
             <input type="number" step="0.01" name="prijs_ex_btw" value="<?php echo htmlspecialchars($artikel['prijs_ex_btw'] ?? ''); ?>" placeholder="Prijs (ex BTW)" required>
             <input type="number" step="1" name="aantal" value="<?php echo htmlspecialchars($artikel['aantal'] ?? ''); ?>" placeholder="Aantal" required>
-            <input type="text" name="locatie" value="<?php echo htmlspecialchars($artikel['locatie'] ?? ''); ?>" placeholder="Locatie" required>
+            <select name="locatie" required>
+                <option value="">Selecteer Locatie</option>
+                <?php
+                $locaties = range('A', 'I');
+                foreach ($locaties as $loc) {
+                    $selected = ($loc == ($artikel['locatie'] ?? '')) ? 'selected' : '';
+                    echo '<option value="Locatie ' . $loc . '" ' . $selected . '>Locatie ' . $loc . '</option>';
+                }
+                ?>
+            </select>
+            <select name="status" required>
+                <option value="">Selecteer Status</option>
+                <option value="in voorraad" <?php echo ($artikel['status'] ?? '') == 'in voorraad' ? 'selected' : ''; ?>>In voorraad</option>
+                <option value="uit voorraad" <?php echo ($artikel['status'] ?? '') == 'uit voorraad' ? 'selected' : ''; ?>>Uit voorraad</option>
+            </select>
             <button type="submit" name="update_artikel">Update Artikel</button>
         </form>
     </div>
 
     <footer>
-        <p>&copy; 2025 Centrum Duurzaam. Alle rechten voorbehouden.</p>
+        <p>© centrumDuurzaam</p>
     </footer>
 
 </body>
+
 </html>

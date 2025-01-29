@@ -73,7 +73,7 @@ $database->disconnect();
 
     </div>
     <footer>
-        <p>&copy; 2023 Centrum Duurzaam. Alle rechten voorbehouden.</p>
+    <p>© centrumDuurzaam</p>
     </footer>
 </body>
 </html>

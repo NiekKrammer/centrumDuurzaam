@@ -7,6 +7,12 @@ $database = new Database();
 $db = $database->getConnection();
 $magazijn = new Magazijn($db);
 
+// Locaties array
+$locaties = ['Locatie A', 'Locatie B', 'Locatie C', 'Locatie D', 'Locatie E', 'Locatie F', 'Locatie G', 'Locatie H', 'Locatie I'];
+
+// Verboden artikelen array
+$verboden_artikelen = ['wapens', 'motorvoertuigen', 'industriele zonnebanken', 'klein gevaarlijk afval', 'verf', 'asbesthoudende producten', 'ink', 'autobanden', 'etenswaren', 'dranken over datum'];
+
 // Toevoegen artikel
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['create_artikel'])) {
     $naam = $_POST['naam'];
@@ -14,6 +20,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['create_artikel'])) {
     $prijs_ex_btw = $_POST['prijs_ex_btw'];
     $aantal = $_POST['aantal'];
     $locatie = $_POST['locatie'];
+
+    // Controleer of het artikel verboden is
+    foreach ($verboden_artikelen as $verboden_artikel) {
+        if (stripos($naam, $verboden_artikel) !== false) {
+            echo "<script>alert('Het artikel bevat een verboden item: $verboden_artikel');</script>";
+            return;
+        }
+    }
+
     $magazijn->createArtikel($naam, $categorie_id, $prijs_ex_btw, $aantal, $locatie);
 }
 
@@ -100,6 +115,7 @@ $categories = $magazijn->getCategories();
                     <th>Prijs (ex BTW)</th>
                     <th>Aantal</th>
                     <th>Locatie</th>
+                    <th>Status</th>
                     <th>Acties</th>
                 </tr>
             </thead>
@@ -112,6 +128,7 @@ $categories = $magazijn->getCategories();
                         <td><?php echo htmlspecialchars($artikel['prijs_ex_btw']); ?></td>
                         <td><?php echo htmlspecialchars($artikel['aantal']); ?></td>
                         <td><?php echo htmlspecialchars($artikel['locatie']); ?></td>
+                        <td><?php echo htmlspecialchars($artikel['status']); ?></td>
                         <td>
                             <!-- Artikel bewerken -->
                             <form method="GET" action="bewerkArtikel.php" style="display:inline-block;">
@@ -143,7 +160,14 @@ $categories = $magazijn->getCategories();
             </select>
             <input type="number" step="0.01" name="prijs_ex_btw" placeholder="Prijs (ex BTW)" required>
             <input type="number" name="aantal" placeholder="Aantal" required>
-            <input type="text" name="locatie" placeholder="Locatie" required>
+            <select name="locatie" required>
+                <option value="">Selecteer Locatie</option>
+                <?php
+                foreach ($locaties as $locatie) {
+                    echo '<option value="' . htmlspecialchars($locatie) . '">' . htmlspecialchars($locatie) . '</option>';
+                }
+                ?>
+            </select>
             <button type="submit" name="create_artikel">Voeg Artikel Toe</button>
         </form>
 
@@ -188,7 +212,7 @@ $categories = $magazijn->getCategories();
     </div>
 
     <footer>
-        <p>&copy; 2025 Centrum Duurzaam. Alle rechten voorbehouden.</p>
+    <p>© centrumDuurzaam</p>
     </footer>
 
 </body>

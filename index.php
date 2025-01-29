@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="nl">
 
 <head>
 	<meta charset="utf-8">
-	<title>Login</title>
+	<title>Centrum Duurzaam</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link
 		rel="stylesheet"
@@ -21,62 +21,79 @@
 	?>
 	<nav>
 		<img src="assets/logo.png" alt="logo">
+		<div class="roleTag_loguitBtn">
+			<a href="process/logout.php">Uitloggen</a>
+		</div>
 	</nav>
 
-	<!-- Login Formulier -->
-	<form action="process/login.php" method="post" class="index_page_form login_form">
-		<img src="assets/user_icon.jpg">
-		<h2>Inloggen</h2>
-		<?php
-		// error message
-		if (isset($_SESSION['error'])) {
-			echo '<p class="error_message">' . $_SESSION['error'] . '</p>';
-			unset($_SESSION['error']);
-		} elseif (isset($_SESSION['success_message'])) {
-			echo '<p class="success_message">' . $_SESSION['success_message'] . '</p>';
-			unset($_SESSION['success_message']);
-		}
-		?>
-		<input type="text" name="username" placeholder="Gebruikersnaam" required>
-		<input type="password" name="password" placeholder="Wachtwoord" required>
-		<input type="submit" value="Inloggen">
-		<button type="button" onclick="showRegisterForm()">Registreren</button>
-	</form>
+	<!-- Hero Section -->
+	<section class="hero">
+		<div class="hero-content">
+			<h1>Welkom bij Centrum Duurzaam</h1>
+			<p>Als medewerker van onze kringloopwinkel draag jij bij aan een circulaire economie. Door het hergebruiken van spullen geef je niet alleen producten een tweede leven, maar help je ook mee aan een duurzamer milieu. Samen creëren we een positieve impact voor zowel mensen als de planeet!</p>
+		</div>
+	</section>
 
-	<!-- Registreer Formulier -->
-	<form action="process/registreer.php" method="post" class="index_page_form registreer_form">
-		<img src="assets/user_icon.jpg">
-		<h2>Registreren</h2>
-		<?php
-		// error message
-		if (isset($_SESSION['error'])) {
-			echo '<p class="error_message">' . $_SESSION['error'] . '</p>';
-			unset($_SESSION['error']);
-		}
-		?>
-		<input type="text" name="gebruikersnaam" placeholder="Gebruikersnaam" required>
-		<input type="password" name="wachtwoord" placeholder="Wachtwoord" required>
+	<div class="content">
+		<!-- Login Formulier -->
+		<form action="process/login.php" method="post" class="index_page_form login_form">
+			<img src="assets/user_icon.jpg">
+			<h2>Inloggen</h2>
+			<?php
+			// error message
+			if (isset($_SESSION['error'])) {
+				echo '<p class="error_message">' . $_SESSION['error'] . '</p>';
+				unset($_SESSION['error']);
+			} elseif (isset($_SESSION['success_message'])) {
+				echo '<p class="success_message">' . $_SESSION['success_message'] . '</p>';
+				unset($_SESSION['success_message']);
+			}
+			?>
+			<input type="text" name="username" placeholder="Gebruikersnaam" required>
+			<input type="password" name="password" placeholder="Wachtwoord" required>
+			<input type="submit" value="Inloggen">
+			<button type="button" onclick="showRegisterForm()">Registreren</button>
+		</form>
 
-		<!-- Dropdown voor rolkeuze -->
-		<select name="rol" required>
-			<option value="">Selecteer een rol</option>
-			<option value="directie">Directie</option>
-			<option value="magazijn">Magazijn medewerker</option>
-			<option value="winkelpersoneel">Winkelpersoon</option>
-			<option value="chaffeur">Chaffeur</option>
-			<option value="chaffeur">Klant</option>
-		</select>
+		<!-- Registreer Formulier -->
+		<form action="process/registreer.php" method="post" class="index_page_form registreer_form">
+			<img src="assets/user_icon.jpg">
+			<h2>Registreren</h2>
+			<?php
+			// error message
+			if (isset($_SESSION['error'])) {
+				echo '<p class="error_message">' . $_SESSION['error'] . '</p>';
+				unset($_SESSION['error']);
+			}
+			?>
+			<input type="text" name="gebruikersnaam" placeholder="Gebruikersnaam" required>
+			<input type="password" name="wachtwoord" placeholder="Wachtwoord" required>
 
-		<label>
-			<input type="checkbox" name="geverifieerd" required> Ik ben geverifieerd en ga akkoord met de voorwaarden.
-		</label>
+			<!-- Dropdown voor rolkeuze -->
+			<select name="rol" required>
+				<option value="">Selecteer een rol</option>
+				<option value="directie">Directie</option>
+				<option value="magazijn">Magazijn medewerker</option>
+				<option value="winkelpersoneel">Winkelpersoon</option>
+				<option value="chaffeur">Chaffeur</option>
+				<option value="chaffeur">Klant</option>
+			</select>
 
-		<input type="submit" value="Registreren">
-		<button type="button" onclick="showLoginForm()">Terug naar inloggen</button>
-	</form>
+			<label>
+				<input type="checkbox" name="geverifieerd" required> Ik ben geverifieerd en ga akkoord met de voorwaarden.
+			</label>
 
+			<input type="submit" value="Registreren">
+			<button type="button" onclick="showLoginForm()">Terug naar inloggen</button>
+		</form>
+	</div>
+
+	<footer>
+		<p>© centrumDuurzaam</p>
+	</footer>
 
 	<script src="script.js"></script>
+
 
 </body>
 

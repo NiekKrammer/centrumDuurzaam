@@ -33,6 +33,34 @@ class Magazijn {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // Functie om voorraad op te halen op basis van artikel_id
+    public function getVoorraadByArtikelId($artikel_id) {
+        $query = "
+            SELECT
+                v.id AS voorraad_id,
+                a.id AS artikel_id,
+                a.naam AS artikel_naam,
+                a.prijs_ex_btw,
+                c.categorie AS categorie_naam,
+                v.locatie,
+                v.aantal,
+                s.status AS voorraad_status,
+                v.ingeboekt_op
+            FROM
+                voorraad v
+            JOIN artikel a ON v.artikel_id = a.id
+            JOIN categorie c ON a.categorie_id = c.id
+            JOIN status s ON v.status_id = s.id
+            WHERE v.artikel_id = :artikel_id
+            ORDER BY v.locatie;
+        ";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':artikel_id', $artikel_id);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     // Functie om een specifiek artikel op te halen
     public function getArtikelById($id) {
         $query = "SELECT * FROM artikel WHERE id = :id";
@@ -71,6 +99,15 @@ class Magazijn {
         return $stmt->execute();
     }
 
+    // Functie om de status van een voorraad item bij te werken
+    public function updateVoorraadStatus($id, $status_id) {
+        $sql = "UPDATE voorraad SET status_id = :status_id WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':status_id', $status_id);
+        return $stmt->execute();
+    }
+
     // CRUD voor artikel
     public function createArtikel($naam, $categorie_id, $prijs_ex_btw) {
         $sql = "INSERT INTO artikel (categorie_id, naam, prijs_ex_btw) VALUES (:categorie_id, :naam, :prijs_ex_btw)";
@@ -82,10 +119,11 @@ class Magazijn {
     }
 
     public function getArtikelen() {
-        $sql = "SELECT a.id, a.naam, a.prijs_ex_btw, c.categorie AS categorie_naam, v.aantal, v.locatie 
+        $sql = "SELECT a.id, a.naam, a.prijs_ex_btw, c.categorie AS categorie_naam, v.aantal, v.locatie, s.status 
                 FROM artikel a
                 JOIN categorie c ON a.categorie_id = c.id
-                LEFT JOIN voorraad v ON a.id = v.artikel_id";
+                LEFT JOIN voorraad v ON a.id = v.artikel_id
+                LEFT JOIN status s ON v.status_id = s.id";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -99,7 +137,7 @@ class Magazijn {
         $stmt->bindParam(':categorie_id', $categorie_id);
         $stmt->bindParam(':naam', $naam);
         $stmt->bindParam(':prijs_ex_btw', $prijs_ex_btw);
-        return $stmt->execute();
+        return $stmt->execute();    
     }
 
     public function deleteArtikel($id) {
