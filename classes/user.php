@@ -90,7 +90,7 @@ class User {
         $this->redirectRolePage($newPassword["Rol"]);
     }
 
-    public function validateWorkerFields($postData) {
+    public function validateWorkerFields($postData, $updateID = -1) {
         $isEmpty = false;
         
         foreach ($this->fields as $field) {
@@ -105,20 +105,25 @@ class User {
         }
         
         $username = htmlspecialchars($_POST["username"]);
-        $password = password_hash($_POST["password"],PASSWORD_DEFAULT);
         $rol = htmlspecialchars($_POST["role"]);
-
+        
         $registerSql = $this->conn->prepare("SELECT Gebruikersnaam FROM accounts WHERE Gebruikersnaam = ?");
         $registerSql->execute([$_POST["username"]]);
         $usernameCheck = $registerSql->fetch();
+        
+        if ($updateID !== -1) {
+            $loginSql = $this->conn->prepare("UPDATE accounts SET Gebruikersnaam = ?, Rol = ? WHERE ID = ?");
+            $loginSql->execute([$username, $rol, intval($updateID)]);
+        } else {
+            if (!empty($usernameCheck)) {
+                $this->displayError("username", "There is already an account with this username. Please choose a different name");
+            }
 
-        if (!empty($usernameCheck)) {
-            $this->displayError("There is already an account with this username. Please choose a different name");
-        }    
+            $password = password_hash($_POST["password"],PASSWORD_DEFAULT);
+            $loginSql = $this->conn->prepare("INSERT INTO accounts (Gebruikersnaam, Wachtwoord, Rol, Is_geverifieerd) VALUES (?, ?, ?, ?)");
+            $loginSql->execute([$username, $password, $rol, 1]);
+        }
 
-        $loginSql = $this->conn->prepare("INSERT INTO accounts (Gebruikersnaam, Wachtwoord, Rol, Is_geverifieerd) VALUES (?, ?, ?, ?)");
-        $loginSql->execute([$username, $password, $rol, 1]);
-        $insertedID = $this->conn->lastInsertId();
     }
 
     public function validateCustomerFields($postData, $setSession = true) {
@@ -141,12 +146,17 @@ class User {
         $registerSql->execute([$email]);
         $emailCheck = $registerSql->fetch();
 
-        if (!empty($emailCheck)) {
-            $this->displayError("There is already an account with this email. Please choose a different email");
-        }    
+        
+        if ($updateID !== -1) {
+            $loginSql = $this->conn->prepare("UPDATE klant SET naam = ?, adres = ?, plaats = ?, telefoon = ?, email = ? WHERE ID = ?");
+            $loginSql->execute([$_POST["name"], $_POST["address"], $_POST["place"], $_POST["telephone"], $email, intval($updateID)]);
+        } else {
+            if (!empty($emailCheck)) {
+                $this->displayError("email", "There is already an account with this email. Please choose a different email");
+            }
 
-        $loginSql = $this->conn->prepare("INSERT INTO klant (naam, adres, plaats, telefoon, email) VALUES (?, ?, ?, ?, ?)");
-        $loginSql->execute([$_POST["name"], $_POST["address"], $_POST["place"], $_POST["telephone"], $email]);
-        $insertedID = $this->conn->lastInsertId();
+            $loginSql = $this->conn->prepare("INSERT INTO klant (naam, adres, plaats, telefoon, email) VALUES (?, ?, ?, ?, ?)");
+            $loginSql->execute([$_POST["name"], $_POST["address"], $_POST["place"], $_POST["telephone"], $email]);
+        }
     }
 }

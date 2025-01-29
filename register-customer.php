@@ -32,6 +32,10 @@
 
         if ($_GET["action"] == "edit") {
             $userData = $user->getEditData("naam, adres, plaats, telefoon, email", "klant", "id = ?", [htmlspecialchars($_GET["id"])]);
+            if (!empty($userData)) {
+                header("Location: " . $_SERVER['HTTP_REFERER']);
+            }
+
             for ($i = 0; $i < count($fields); $i++) {
                 $fields[$i]["value"] = $userData[$i];
             }

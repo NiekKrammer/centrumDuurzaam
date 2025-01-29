@@ -14,15 +14,14 @@
         <form method="post">
         <?php
 
-        @session_start();
+        include './classes/user.php';
 
-        var_dump($_SESSION);
+        $user = new User();
 
-        if (empty($_SESSION["role"] && $_SESSION["role"] != "directie")) {
+        if (empty($_SESSION["role"] || $_SESSION["role"] != "directie")) {
             header("Location: index.php");
         }
         
-        include './classes/user.php';
         
         $fields = [
             ["name" => "username", "formatted" => "Username", "label" => "Voer in uw username", "type" => "text"],
@@ -36,10 +35,21 @@
             <option value='chaffeur'>Chauffeur</option>
             </select>"],
         ];
-        
-        $user = new User($fields);
 
-        // $user->redirectLoggedIn();
+        
+        $user->fields = $fields;
+        
+        if (isset($_GET["action"]) && $_GET["action"] == "edit") {
+            $userData = $user->getEditData("Gebruikersnaam", "accounts", "ID = ?", [htmlspecialchars($_GET["id"])]);
+            if (empty($userData)) {
+                header("Location: " . "register-worker.php");
+            }
+
+            $fields[0]["value"] = $userData["Gebruikersnaam"];
+            unset($fields[1]);
+            $user->fields = $fields;
+        }
+        
         $user->createForm();
 
         ?>
@@ -54,7 +64,11 @@ include './classes/helpers.php';
 $helper = new Helpers();
 
 if ($_POST) {
-    $user->validateWorkerFields($_POST);
+    if (!empty($_GET["id"])) {
+        $user->validateWorkerFields($_POST, $_GET["id"]);
+    } else {
+        $user->validateWorkerFields($_POST);
+    }
 }
 
 ?>
