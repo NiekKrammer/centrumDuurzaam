@@ -36,6 +36,14 @@ class Magazijn
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getSum() {
+        $query = "SELECT SUM(prijs_ex_btw * sold_amount) AS total_revenue FROM artikel;";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+
     // Functie om voorraad op te halen op basis van artikel_id
     public function getVoorraadByArtikelId($artikel_id)
     {
@@ -161,7 +169,7 @@ class Magazijn
 
     public function getArtikelen()
     {
-        $sql = "SELECT a.id, a.naam, a.prijs_ex_btw, c.categorie AS categorie_naam, v.aantal, v.locatie, s.status, a.directVerkoopbaar, a.isKapot 
+        $sql = "SELECT a.id, a.naam, a.prijs_ex_btw, a.sold_amount, c.categorie AS categorie_naam, v.aantal, v.locatie, s.status, a.directVerkoopbaar, a.isKapot 
                 FROM artikel a
                 JOIN categorie c ON a.categorie_id = c.id
                 LEFT JOIN voorraad v ON a.id = v.artikel_id
@@ -172,7 +180,7 @@ class Magazijn
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function updateArtikel($id, $categorie_id, $naam, $prijs_ex_btw, $aantal, $locatie, $status, $directVerkoopbaar, $isKapot)
+    public function updateArtikel($id, $categorie_id, $naam, $prijs_ex_btw, $aantal, $locatie, $amount_sold, $status, $directVerkoopbaar, $isKapot)
     {
         try {
             // Begin de transactie
@@ -180,7 +188,7 @@ class Magazijn
 
             // Update de artikel tabel
             $query1 = "UPDATE artikel 
-                   SET naam = :naam, categorie_id = :categorie_id, prijs_ex_btw = :prijs_ex_btw, directVerkoopbaar = :directVerkoopbaar, isKapot = :isKapot
+                   SET naam = :naam, categorie_id = :categorie_id, prijs_ex_btw = :prijs_ex_btw, directVerkoopbaar = :directVerkoopbaar, isKapot = :isKapot, sold_amount = :sold_amount
                    WHERE id = :id";
             $stmt1 = $this->db->prepare($query1);
             $stmt1->bindParam(':naam', $naam);
@@ -188,6 +196,7 @@ class Magazijn
             $stmt1->bindParam(':prijs_ex_btw', $prijs_ex_btw);
             $stmt1->bindParam(':directVerkoopbaar', $directVerkoopbaar);
             $stmt1->bindParam(':isKapot', $isKapot);
+            $stmt1->bindParam(':sold_amount', $amount_sold);
             $stmt1->bindParam(':id', $id);
             $stmt1->execute();
 

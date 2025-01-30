@@ -19,9 +19,10 @@ if (isset($_POST['update_artikel'])) {
     $status = $_POST['status'];
     $directVerkoopbaar = $_POST['directVerkoopbaar'];
     $isKapot = $_POST['isKapot'];
+    $amount_sold = $_POST["amount_sold"];
 
     // Update artikel in the database
-    $magazijn->updateArtikel($id, $categorie_id, $naam, $prijs_ex_btw, $aantal, $locatie, $status, $directVerkoopbaar, $isKapot);
+    $magazijn->updateArtikel($id, $categorie_id, $naam, $prijs_ex_btw, $aantal, $locatie, $amount_sold, $status, $directVerkoopbaar, $isKapot);
     header("Location: ../magazijnMedewerkerPagina.php");
     exit;
 }
@@ -29,7 +30,7 @@ if (isset($_POST['update_artikel'])) {
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    $query = "SELECT a.id, a.naam, a.categorie_id, a.prijs_ex_btw, v.aantal, v.locatie, v.status_id, a.directVerkoopbaar, a.isKapot 
+    $query = "SELECT a.id, a.naam, a.categorie_id, a.prijs_ex_btw, a.sold_amount, v.aantal, v.locatie, v.status_id, a.directVerkoopbaar, a.isKapot 
               FROM artikel a
               JOIN voorraad v ON a.id = v.artikel_id
               WHERE a.id = :id";
@@ -99,6 +100,9 @@ $helpers->checkAccess(["directie", "magazijn"], "../../login.php");
             <label for="locatie">Locatie:</label>
             
             <?php echo $helpers->getLocationsHtml($artikel['locatie']); ?>
+
+            <label for="aantal">Aantal:</label>
+            <input type="number" id="amount_sold" step="1" name="amount_sold" value="<?php echo htmlspecialchars($artikel['sold_amount'] ?? ''); ?>" placeholder="Amount verkocht" required>
                         
             <label for="status">Status:</label>
             <select id="status" name="status" required>

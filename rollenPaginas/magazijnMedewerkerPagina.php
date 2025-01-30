@@ -105,6 +105,9 @@ $categories = $magazijn->getCategories();
 
         <h1>Artikelen</h1>
         <?php
+        $totalSum = $magazijn->getSum()[0]["total_revenue"];
+        echo "<h2>Totale omzet: $totalSum</h2>";
+
         if (isset($_SESSION['success_message'])) {
             echo '<div class="success_message">' . $_SESSION['success_message'] . '</div>';
             unset($_SESSION['success_message']);
@@ -158,6 +161,7 @@ $categories = $magazijn->getCategories();
                     <th>Locatie</th>
                     <th>Direct Verkoopbaar</th>
                     <th>Is Kapot</th>
+                    <th>Amount sold</th>
                     <th>Status</th>
                     <th>Acties</th>
                 </tr>
@@ -173,6 +177,7 @@ $categories = $magazijn->getCategories();
                         <td><?php echo htmlspecialchars($artikel['locatie']); ?></td>
                         <td><?php echo htmlspecialchars($artikel['directVerkoopbaar']); ?></td>
                         <td><?php echo htmlspecialchars($artikel['isKapot']); ?></td>
+                        <td><?php echo htmlspecialchars($artikel['sold_amount']); ?></td>
                         <td><?php echo htmlspecialchars($artikel['status']); ?></td>
                         <td>
                             <!-- Artikel bewerken -->
