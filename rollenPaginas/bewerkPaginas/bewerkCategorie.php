@@ -1,6 +1,6 @@
 <?php
 // Include database connection
-include_once '../classes/db.php';
+include_once '../../classes/db.php';
 
 // Maak verbinding met de database via de Database class
 $database = new Database();
@@ -19,7 +19,7 @@ if (isset($_POST['update'])) {
 
     if ($stmt->execute()) {
         echo "Category updated successfully.";
-        header("Location: magazijnMedewerkerPagina.php");
+        header("Location: ../magazijnMedewerkerPagina.php");
         exit;
     } else {
         echo "Error updating category.";
@@ -44,36 +44,39 @@ $database->disconnect();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Bewerk categorie</title>
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../../styles.css">
 </head>
+
 <body>
-<nav>
-        <img src="../assets/logo.png" alt="logo">
+    <nav>
+        <img src="../../assets/logo.png" alt="logo">
         <div class="roleTag_loguitBtn">
             <span>Magazijn</span>
-            <a href="../logout.php">Uitloggen</a>
+            <a href="../../logout.php">Uitloggen</a>
         </div>
     </nav>
     <div class="bewerkCategorie">
-    <h1>Bewerk categorie</h1>
-    <a href="magazijnMedewerkerPagina.php">&lt; Terug</a>
-    <?php if ($category): ?>
-    <form action="bewerkCategorie.php" method="post">
-        <input type="hidden" name="id" value="<?php echo $category['id']; ?>">
-        <label for="name">Category Name:</label>
-        <input type="text" name="name" id="name" value="<?php echo $category['categorie']; ?>" required>
-        <button type="submit" name="update">Update</button>
-    </form>
-    <?php else: ?>
-    <p>Category not found.</p>
-    <?php endif; ?>
+        <h1>Bewerk categorie</h1>
+        <a href="../magazijnMedewerkerPagina.php">&lt; Terug</a>
+        <?php if ($category): ?>
+            <form action="bewerkCategorie.php" method="post">
+                <input type="hidden" name="id" value="<?php echo $category['id']; ?>">
+                <label for="name">Category Name:</label>
+                <input type="text" name="name" id="name" value="<?php echo $category['categorie']; ?>" required>
+                <button type="submit" name="update">Update</button>
+            </form>
+        <?php else: ?>
+            <p>Category not found.</p>
+        <?php endif; ?>
 
     </div>
     <footer>
-    <p>© centrumDuurzaam</p>
+        <p>© centrumDuurzaam</p>
     </footer>
 </body>
+
 </html>

@@ -15,6 +15,21 @@ body {
   min-height: 100dvh;
 }
 
+table {
+  box-shadow: #63636333 0px 2px 8px 0px;
+}
+
+table, th, td {
+  border: 1px solid #ddd;
+}
+th, td {
+  padding: 8px;
+  text-align: left;
+}
+th {
+  background-color: #f2f2f2;
+}
+
 h1, h2 {
   font-size: 50px;
   font-weight: 700;
@@ -31,7 +46,7 @@ h1, h2 {
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-  animation: text 12s linear infinite both;
+  animation: text 15s linear infinite both;
   margin-bottom: 12px;
 
   & p {
@@ -105,13 +120,40 @@ nav {
   }
 
   & a {
-    background-color: #04ae9d;
+    background-color: #6b6b69;
     color: #fff;
     border: none;
     padding: 4px 12px;
     border-radius: 5px;
     cursor: pointer;
   }
+}
+
+/* --- index pagina --- */
+.herosection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+  text-align: center;
+  margin: 0 auto;
+  max-width: 1000px;
+}
+.herosection h1 {
+  font-size: 50px;
+}
+
+.herosection p {
+  color: #111;
+  margin-bottom: 20px;
+}
+.herosection a {
+  padding: 10px 24px;
+  background-color: #04ae9d;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
 }
 
 /* --- index pagina --- */
@@ -182,11 +224,24 @@ nav {
   }
 }
 
+.login-container {
+  margin: auto;
+  background-color: #807e7e2a;
+  padding: 30px;
+  border-radius: 15px;
+}
+
+.login-container input {
+  width: 100%;
+  border-radius: 5px;
+}
+
 /* --- magazijn pagina --- */
 .magazijnVoorraad {
   margin: 0 40px;
 
   & h1 {
+    margin-top: 30px;
     text-align: left;
   }
 
@@ -195,8 +250,42 @@ nav {
     margin-top: 50px;
     font-size: 30px;
   }
+
+  & input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+
+  & select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+
+  & button {
+    border: none;
+    background-color: #04ae9d;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  & .addBtn {
+    background-color: #04ae9d;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 9px 20px;
+    margin-left: 3px;
+  }
+
 }
 
+/* --- bewerk artikel pagina --- */
 .bewerkCategorie {
   margin: 0 40px;
 }
@@ -205,14 +294,9 @@ nav {
 footer {
   text-align: center;
   margin-top: auto;
-  padding-top: 30px;
+  padding: 6px;
 }
 
 .errorMessage {
   color: red;
-}
-
-#logo {
-  height: 100px;
-  width: 100px;
 }

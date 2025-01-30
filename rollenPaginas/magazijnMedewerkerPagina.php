@@ -1,14 +1,10 @@
 <?php
-
 require '../classes/db.php';
 require '../models/Magazijn.php';
 
 $database = new Database();
 $db = $database->getConnection();
 $magazijn = new Magazijn($db);
-
-// Locaties array
-$locaties = ['Locatie A', 'Locatie B', 'Locatie C', 'Locatie D', 'Locatie E', 'Locatie F', 'Locatie G', 'Locatie H', 'Locatie I'];
 
 // Verboden artikelen array
 $verboden_artikelen = ['wapens', 'motorvoertuigen', 'industriele zonnebanken', 'klein gevaarlijk afval', 'verf', 'asbesthoudende producten', 'ink', 'autobanden', 'etenswaren', 'dranken over datum'];
@@ -20,16 +16,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['create_artikel'])) {
     $prijs_ex_btw = $_POST['prijs_ex_btw'];
     $aantal = $_POST['aantal'];
     $locatie = $_POST['locatie'];
+    $directVerkoopbaar = $_POST['directVerkoopbaar'];
+    $isKapot = $_POST['isKapot'];
 
-    // Controleer of het artikel verboden is
-    foreach ($verboden_artikelen as $verboden_artikel) {
-        if (stripos($naam, $verboden_artikel) !== false) {
-            echo "<script>alert('Het artikel bevat een verboden item: $verboden_artikel');</script>";
-            return;
-        }
-    }
-
-    $magazijn->createArtikel($naam, $categorie_id, $prijs_ex_btw, $aantal, $locatie);
+    // Roep de createArtikel functie aan
+    $magazijn->createArtikel($naam, $categorie_id, $prijs_ex_btw, $aantal, $locatie, $directVerkoopbaar, $isKapot);
 }
 
 // Bijwerken artikel
@@ -40,11 +31,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_artikel'])) {
     $prijs_ex_btw = $_POST['prijs_ex_btw'];
     $aantal = $_POST['aantal'];
     $locatie = $_POST['locatie'];
-    $magazijn->updateArtikel($id, $naam, $categorie_id, $prijs_ex_btw, $aantal, $locatie);
+    $status_id = $_POST['status_id'];
+
+    // Roep de updateArtikel functie aan
+    $magazijn->updateArtikel($id, $categorie_id, $naam, $prijs_ex_btw, $aantal, $locatie, $status_id, $directVerkoopbaar, $isKapot);
 }
 
+
 // Verwijder artikel
-if (isset($_POST['delete_artikel'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_artikel'])) {
     $id = $_POST['id'];
     $magazijn->deleteArtikel($id);
 }
@@ -75,24 +70,14 @@ $categories = $magazijn->getCategories();
 
 <!DOCTYPE html>
 <html lang="nl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../styles.css" rel="stylesheet" type="text/css">
-    <title>Artikel Beheren</title>
-    <style>
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-        th, td {
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
+    <title>Artikelen Beheren</title>
 </head>
+
 <body>
 
     <nav>
@@ -105,7 +90,7 @@ $categories = $magazijn->getCategories();
 
     <div class="magazijnVoorraad">
 
-    <a href="directiePagina.php">&lt; Ga terug</a>
+        <a href="directiePagina.php">&lt; Ga terug</a>
 
         <h1>Artikelen</h1>
 
@@ -118,6 +103,8 @@ $categories = $magazijn->getCategories();
                     <th>Prijs (ex BTW)</th>
                     <th>Aantal</th>
                     <th>Locatie</th>
+                    <th>Direct Verkoopbaar</th>
+                    <th>Is Kapot</th>
                     <th>Status</th>
                     <th>Acties</th>
                 </tr>
@@ -131,15 +118,17 @@ $categories = $magazijn->getCategories();
                         <td><?php echo htmlspecialchars($artikel['prijs_ex_btw']); ?></td>
                         <td><?php echo htmlspecialchars($artikel['aantal']); ?></td>
                         <td><?php echo htmlspecialchars($artikel['locatie']); ?></td>
+                        <td><?php echo htmlspecialchars($artikel['directVerkoopbaar']); ?></td>
+                        <td><?php echo htmlspecialchars($artikel['isKapot']); ?></td>
                         <td><?php echo htmlspecialchars($artikel['status']); ?></td>
                         <td>
                             <!-- Artikel bewerken -->
-                            <form method="GET" action="bewerkArtikel.php" style="display:inline-block;">
+                            <form method="GET" action="bewerkPaginas/bewerkArtikel.php" style="display:inline-block;">
                                 <input type="hidden" name="id" value="<?php echo htmlspecialchars($artikel['id']); ?>">
                                 <button type="submit">Bewerken</button>
                             </form>
                             <!-- Artikel verwijderen -->
-                            <form method="POST" style="display:inline-block;">
+                            <form method="POST" style="display:inline-block;" onsubmit="return confirm('Weet je zeker dat je dit artikel wilt verwijderen?');">
                                 <input type="hidden" name="id" value="<?php echo htmlspecialchars($artikel['id']); ?>">
                                 <button type="submit" name="delete_artikel">Verwijderen</button>
                             </form>
@@ -149,7 +138,7 @@ $categories = $magazijn->getCategories();
             </tbody>
         </table>
 
-        <!-- Artikel toevoegen formulier -->
+        <!-- Artikel toevoegen -->
         <h2>Artikel toevoegen</h2>
         <form action="" method="post">
             <input type="text" name="naam" placeholder="Naam" required>
@@ -165,13 +154,27 @@ $categories = $magazijn->getCategories();
             <input type="number" name="aantal" placeholder="Aantal" required>
             <select name="locatie" required>
                 <option value="">Selecteer Locatie</option>
-                <?php
-                foreach ($locaties as $locatie) {
-                    echo '<option value="' . htmlspecialchars($locatie) . '">' . htmlspecialchars($locatie) . '</option>';
-                }
-                ?>
+                <option value="Locatie A">Locatie A</option>
+                <option value="Locatie B">Locatie B</option>
+                <option value="Locatie C">Locatie C</option>
+                <option value="Locatie D">Locatie D</option>
+                <option value="Locatie E">Locatie E</option>
+                <option value="Locatie F">Locatie F</option>
+                <option value="Locatie G">Locatie G</option>
+                <option value="Locatie H">Locatie H</option>
+                <option value="Locatie I">Locatie I</option>
             </select>
-            <button type="submit" name="create_artikel">Voeg Artikel Toe</button>
+            <select name="directVerkoopbaar" required>
+                <option value="">Direct Verkoopbaar</option>
+                <option value="ja">Ja</option>
+                <option value="nee">Nee</option>
+            </select>
+            <select name="isKapot" required>
+                <option value="">Is Kapot</option>
+                <option value="ja">Ja</option>
+                <option value="nee">Nee</option>
+            </select>
+            <button type="submit" name="create_artikel" class="addBtn">Voeg Artikel Toe</button>
         </form>
 
         <!-- Categorieën beheren -->
@@ -191,7 +194,7 @@ $categories = $magazijn->getCategories();
                         <td><?php echo htmlspecialchars($categorie['naam']); ?></td>
                         <td>
                             <!-- Categorie bewerken -->
-                            <form method="GET" action="bewerkCategorie.php" style="display:inline-block;">
+                            <form method="GET" action="bewerkPaginas/bewerkCategorie.php" style="display:inline-block;">
                                 <input type="hidden" name="id" value="<?php echo htmlspecialchars($categorie['id']); ?>">
                                 <button type="submit">Bewerken</button>
                             </form>
@@ -210,13 +213,14 @@ $categories = $magazijn->getCategories();
         <h2>Categorie toevoegen</h2>
         <form action="" method="post">
             <input type="text" name="naam" placeholder="Naam" required>
-            <button type="submit" name="create_categorie">Voeg Categorie Toe</button>
+            <button type="submit" name="create_categorie" class="addBtn">Voeg Categorie Toe</button>
         </form>
     </div>
 
     <footer>
-    <p>© centrumDuurzaam</p>
+        <p>© centrumDuurzaam</p>
     </footer>
 
 </body>
+
 </html>

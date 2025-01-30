@@ -3,10 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="styles.css">
     <title>Login</title>
 </head>
 <body>
+
+<nav>
+        <img src="assets/logo.png" alt="logo">
+        <div class="roleTag_loguitBtn">
+            <span>Magazijn</span>
+            <a href="logout.php">Uitloggen</a>
+        </div>
+    </nav>
+
     <div class="login-container">
         <h2>Login</h2>
         <form method="post">

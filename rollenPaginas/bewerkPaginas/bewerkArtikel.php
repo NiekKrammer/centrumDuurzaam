@@ -1,6 +1,6 @@
 <?php
-require '../classes/db.php';
-require '../models/Magazijn.php';
+require '../../classes/db.php';
+require '../../models/Magazijn.php';
 
 $database = new Database();
 $db = $database->getConnection();
@@ -25,9 +25,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_artikel'])) {
     error_log("Status: $status");
 
     if ($magazijn->categoryExists($categorie_id)) {
-        if ($magazijn->updateArtikel($id, $categorie_id, $naam, $prijs_ex_btw, $aantal, $locatie, $status)) {
+        // Verkrijg de waarden van directVerkoopbaar en isKapot
+        $directVerkoopbaar = isset($_POST['directVerkoopbaar']) ? $_POST['directVerkoopbaar'] : 0;
+        $isKapot = isset($_POST['isKapot']) ? $_POST['isKapot'] : 0;
+    
+        // Roep de updateArtikel functie aan met de extra velden
+        if ($magazijn->updateArtikel($id, $categorie_id, $naam, $prijs_ex_btw, $aantal, $locatie, $status, $directVerkoopbaar, $isKapot)) {
             error_log("Artikel succesvol bijgewerkt.");
-            header("Location: magazijnMedewerkerPagina.php");
+            header("Location: ../magazijnMedewerkerPagina.php");
             exit();
         } else {
             error_log("Fout bij het bijwerken van het artikel.");
@@ -37,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_artikel'])) {
         error_log("Ongeldige categorie.");
         echo "Ongeldige categorie.";
     }
+    
 }
 
 if (isset($_GET['id'])) {
@@ -59,22 +65,22 @@ if (isset($_GET['id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../styles.css" rel="stylesheet" type="text/css">
+    <link href="../../styles.css" rel="stylesheet" type="text/css">
     <title>Artikel Bewerken</title>
 </head>
 
 <body>
 
     <nav>
-        <img src="../assets/logo.png" alt="logo">
+        <img src="../../assets/logo.png" alt="logo">
         <div class="roleTag_loguitBtn">
             <span>Magazijn</span>
-            <a href="../logout.php">Uitloggen</a>
+            <a href="../../logout.php">Uitloggen</a>
         </div>
     </nav>
 
     <div class="magazijnVoorraad">
-        <a href="magazijnMedewerkerPagina.php">&lt; Terug</a>
+        <a href="../magazijnMedewerkerPagina.php">&lt; Ga terug</a>
 
         <h1>Artikel Bewerken</h1>
 
@@ -94,21 +100,38 @@ if (isset($_GET['id'])) {
             <input type="number" step="1" name="aantal" value="<?php echo htmlspecialchars($artikel['aantal'] ?? ''); ?>" placeholder="Aantal" required>
             <select name="locatie" required>
                 <option value="">Selecteer Locatie</option>
-                <?php
-                $locaties = range('A', 'I');
-                foreach ($locaties as $loc) {
-                    $selected = ($loc == ($artikel['locatie'] ?? '')) ? 'selected' : '';
-                    echo '<option value="Locatie ' . $loc . '" ' . $selected . '>Locatie ' . $loc . '</option>';
-                }
-                ?>
+                <option value="Locatie A">Locatie A</option>
+                <option value="Locatie B">Locatie B</option>
+                <option value="Locatie C">Locatie C</option>
+                <option value="Locatie D">Locatie D</option>
+                <option value="Locatie E">Locatie E</option>
+                <option value="Locatie F">Locatie F</option>
+                <option value="Locatie G">Locatie G</option>
+                <option value="Locatie H">Locatie H</option>
+                <option value="Locatie I">Locatie I</option>
             </select>
             <select name="status" required>
                 <option value="">Selecteer Status</option>
                 <option value="in voorraad" <?php echo ($artikel['status'] ?? '') == 'in voorraad' ? 'selected' : ''; ?>>In voorraad</option>
                 <option value="uit voorraad" <?php echo ($artikel['status'] ?? '') == 'uit voorraad' ? 'selected' : ''; ?>>Uit voorraad</option>
             </select>
-            <button type="submit" name="update_artikel">Update Artikel</button>
+
+            <!-- Toegevoegde select opties voor directVerkoopbaar en isKapot -->
+            <select name="directVerkoopbaar" required>
+                <option value="">Direct Verkoopbaar</option>
+                <option value="ja" <?php echo ($artikel['directVerkoopbaar'] ?? '') == 'ja' ? 'selected' : ''; ?>>Ja</option>
+                <option value="nee" <?php echo ($artikel['directVerkoopbaar'] ?? '') == 'nee' ? 'selected' : ''; ?>>Nee</option>
+            </select>
+
+            <select name="isKapot" required>
+                <option value="">Is Kapot</option>
+                <option value="ja" <?php echo ($artikel['isKapot'] ?? '') == 'ja' ? 'selected' : ''; ?>>Ja</option>
+                <option value="nee" <?php echo ($artikel['isKapot'] ?? '') == 'nee' ? 'selected' : ''; ?>>Nee</option>
+            </select>
+
+            <button type="submit" name="update_artikel" class="addBtn" style="margin-top: 8px;">Update Artikel</button>
         </form>
+
     </div>
 
     <footer>
