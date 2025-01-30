@@ -14,5 +14,7 @@
         <img src="../assets/logo.png" alt="logo">
         <a href="../logout.php">Uitloggen</a>
     </nav>
-
+    <footer>
+        <p>© 2025 Centrum Duurzaam. Alle rechten voorbehouden.</p>
+    </footer>
 </body>

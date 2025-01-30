@@ -77,6 +77,8 @@ $db->disconnect();
     </form>
     <a href="chauffeurPagina.php" class="btn">Terug naar overzicht</a>
 </div>
-
+<footer>
+        <p>© 2025 Centrum Duurzaam. Alle rechten voorbehouden.</p>
+    </footer>
 </body>
 </html>

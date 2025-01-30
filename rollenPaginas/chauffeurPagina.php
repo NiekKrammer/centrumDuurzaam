@@ -77,5 +77,9 @@ $appointments = $planning->getAllAppointments();
     </div>
 </div>
 
+<footer>
+        <p>© 2025 Centrum Duurzaam. Alle rechten voorbehouden.</p>
+    </footer>
+
 </body>
 </html>

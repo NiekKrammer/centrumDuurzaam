@@ -94,6 +94,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
         <a href="chauffeurPagina.php">Terug</a>
     </div>
+
+    <footer>
+        <p>© 2025 Centrum Duurzaam. Alle rechten voorbehouden.</p>
+    </footer>
 </body>
 
 </html>
