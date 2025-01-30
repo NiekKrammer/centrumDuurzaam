@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="../styles.css">
     <title>Login</title>
 </head>
 <body>
-    <img id="logo" src="./assets/logo.png" alt="Logo.png">
+    <?php include '../includes/nav.php'; ?>
     <div class="login-container">
         <!-- Laat text zien op basis van welke actie het is -->
         <?php if (empty($_GET["id"])) { echo "<h2>Nieuw account</h2>";} else { echo "<h2>Edit worker ID " . $_GET["id"] . "</h2>";}?>
         <form method="post">
         <?php
-
-        include './classes/user.php';
+        
+        include '../classes/user.php';
 
         $user = new User();
 
@@ -43,7 +43,7 @@
             // Pak de gebruikersnaam
             $userData = $user->getEditData("Gebruikersnaam", "accounts", "ID = ?", [htmlspecialchars($_GET["id"])]);
             if (empty($userData)) {
-                header("Location: worker.php");
+                header("Location: ./rollenPaginas/worker.php");
             }
             
             // Verander de preset value van het username field
@@ -56,7 +56,7 @@
             // Doe een delete indien de actie delete is
         } else if (isset($_GET["action"]) && $_GET["action"] == "delete") {
             $user->deleteAccount(htmlspecialchars($_GET["id"]));
-            header("Location: rollenPaginas/klantenPagina.php");
+            header("Location: ./rollenPaginas/klantenPagina.php");
         }
         
         $user->createForm();

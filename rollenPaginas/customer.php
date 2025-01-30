@@ -3,19 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="../styles.css">
     <title>Login</title>
 </head>
 <body>
-    <img id="logo" src="./assets/logo.png" alt="Logo.png">
+    <?php include '../includes/nav.php'; ?>
     <div class="login-container">
         <!-- Laat text zien op basis van welke actie het is -->
         <?php if (empty($_GET["id"])) { echo "<h2>Nieuw account</h2>";} else { echo "<h2>Edit klant ID " . $_GET["id"] . "</h2>";}?>
         <a href="rollenPaginas/klantenPagina.php">Ga terug naar klanten overzicht</a>
         <form method="post">
         <?php
-        
-        include './classes/user.php';
+        include '../classes/user.php';
 
         $user = new User();
 

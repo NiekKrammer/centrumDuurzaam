@@ -16,7 +16,7 @@ class User {
         $this->fields = $fields;
 
         // Initialize de database
-        include './classes/db.php';
+        include 'db.php';
 
         $db = new Database();
         $this->conn = $db->getConnection();

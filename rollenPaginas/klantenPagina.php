@@ -15,7 +15,7 @@
     <div class="klantenPagina">
 
         <h1>Klanten</h1>
-        <a class="nieuw" href="../customer.php">Maak nieuwe klant</a>
+        <a class="nieuw" href="../rollenPaginas/customer.php">Maak nieuwe klant</a>
 
         <?php
         include_once '../classes/db.php';
@@ -47,8 +47,8 @@
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 extract($row);
 
-                $editLink = "../customer.php?action=edit&id=" . $id;
-                $deleteLink = "../customer.php?action=delete&id=" . $id;
+                $editLink = "./customer.php?action=edit&id=" . $id;
+                $deleteLink = "./customer.php?action=delete&id=" . $id;
 
                 if ($active) {
                     echo "<tr>";
