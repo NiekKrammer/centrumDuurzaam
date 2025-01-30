@@ -5,8 +5,7 @@ $planning = new Planning();
 
 if (isset($_GET['delete_id'])) {
     $planning->deleteAppointment($_GET['delete_id']);
-    header("Location: index.php");
-    exit;
+    header("Location: chauffeurPagina.php");
 }
 
 $appointments = $planning->getAllAppointments();
@@ -31,13 +30,7 @@ $appointments = $planning->getAllAppointments();
 </head>
 <body>
 
-<nav>
-    <img src="../../assets/logo.png" alt="logo">
-    <div class="roleTag_loguitBtn">
-        <span>Magazijn</span>
-        <a href="../logout.php">Uitloggen</a>
-    </div>
-</nav>
+<?php include '../includes/nav.php'; ?>
 
 <div class="container">
     <h1>Welkom Chauffeur</h1>
@@ -65,7 +58,7 @@ $appointments = $planning->getAllAppointments();
         <td><?= htmlspecialchars($appointment['kenteken']) ?></td>
         <td>
             <a href='afspraakwijzigen.php?id=<?= $appointment["id"] ?>' class='btn'>Wijzigen</a>
-            <a href='../classes/planning.php?delete_id=<?= $appointment["id"] ?>' class='btn btn-danger' onclick="return confirm('Weet je zeker dat je deze afspraak wilt verwijderen?');">Verwijderen</a>
+            <a href='chauffeurPagina.php?delete_id=<?= $appointment["id"] ?>' class='btn btn-danger' onclick="return confirm('Weet je zeker dat je deze afspraak wilt verwijderen?');">Verwijderen</a>
         </td>
     </tr>
 <?php endforeach; ?>
@@ -76,6 +69,10 @@ $appointments = $planning->getAllAppointments();
         <a href="beheerwagens.php" class="btn">Beheer wagens</a>
     </div>
 </div>
+
+<footer>
+    <p>© 2025 Centrum Duurzaam. Alle rechten voorbehouden.</p>
+</footer>
 
 </body>
 </html>
