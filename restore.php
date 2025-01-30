@@ -7,10 +7,13 @@
     <title>Restore account</title>
 </head>
 <body>
-    <h2>Restore your account</h2>
+    <h2>Restore account ID <?php echo $_GET["id"] ?></h2>
+    <a href="rollenPaginas/klantenPagina.php">Ga terug naar worker overzicht</a>
     <form method="post">
-        <label>New password</label>
-        <input type="password" name="password" />
+        <label>New password</label><br>
+        <input type="password" name="password" /><br>
+        <input type="password" name="password_check" /><br>
+        <button type="submit">Verander wachtwoord</button>
     </form>
 </body>
 </html>
@@ -23,7 +26,13 @@ if ($_POST) {
 
     $user = new User();
 
-    $user->updateUserPassword(password_hash($_POST["password"],PASSWORD_DEFAULT), $_GET["id"]);
+    $user->checkAdmin("login.php");
 
-    echo "Your password has been changed!<a href='login.php'>Go to login</a>";
+    if ($_POST["password"] !== $_POST["password_check"]) {
+        echo "Wachtwoorden komen niet overeen";
+    } else {
+        $user->updateUserPassword(password_hash($_POST["password"],PASSWORD_DEFAULT), $_GET["id"]);
+    
+        echo "Your password has been changed!<a href='login.php'>Go to login</a>";
+    }
 }

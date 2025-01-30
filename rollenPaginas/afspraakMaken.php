@@ -33,7 +33,7 @@ $db->disconnect();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Afspraak maken</title>
-    <link href="../../styles.css" rel="stylesheet" type="text/css">
+    <link href="../styles.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -64,7 +64,6 @@ $db->disconnect();
   <option value="EF-456-GH">EF-456-GH</option>
   <option value="AB-123-CDS">AB-123-CDS</option>
 </select>
-        
         <label for="ophalen_of_bezorgen">Ophalen of bezorgen:</label>
         <select name="ophalen_of_bezorgen" required>
             <option value="ophalen">Ophalen</option>

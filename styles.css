@@ -119,8 +119,8 @@ nav {
     color: gray;
   }
 
-  & a {
-    background-color: #6d6e6e;
+  & a :not(img) {
+    background-color: #04ae9d;
     color: #fff;
     border: none;
     padding: 4px 12px;
@@ -340,4 +340,31 @@ footer {
 
 .errorMessage {
   color: red;
+}
+
+#logo {
+  height: 100px;
+  width: 100px;
+}
+
+.klantenPagina {
+  margin: 20px;
+}
+
+.klantenPagina h1 {
+  text-align: left;
+}
+
+.klantenPagina .nieuw {
+  background-color: #04ae9d;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.klantenPagina table {
+  width: 100%;
+  margin: 20px 0;
 }

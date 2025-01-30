@@ -17,7 +17,7 @@ $appointments = $planning->getAllAppointments();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../../styles.css" rel="stylesheet" type="text/css">
+    <link href="../styles.css" rel="stylesheet" type="text/css">
     <title>Chauffeur</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; }
@@ -31,13 +31,15 @@ $appointments = $planning->getAllAppointments();
 </head>
 <body>
 
-<nav>
+<?php include '../includes/nav.php'; ?>
+
+<!-- <nav>
     <img src="../../assets/logo.png" alt="logo">
     <div class="roleTag_loguitBtn">
         <span>Magazijn</span>
         <a href="../logout.php">Uitloggen</a>
     </div>
-</nav>
+</nav> -->
 
 <div class="container">
     <h1>Welkom Chauffeur</h1>

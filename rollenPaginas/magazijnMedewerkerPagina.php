@@ -92,13 +92,14 @@ $categories = $magazijn->getCategories();
 
 <body>
 
-    <nav>
-        <img src="../assets/logo.png" alt="logo">
-        <div class="roleTag_loguitBtn">
+    <?php include '../includes/nav.php'; ?>
+    <!-- <nav> -->
+        <!-- <img src="../assets/logo.png" alt="logo"> -->
+        <!-- <div class="roleTag_loguitBtn">
             <span>Magazijn</span>
             <a href="../logout.php">Uitloggen</a>
-        </div>
-    </nav>
+        </div> -->
+    <!-- </nav> -->
 
     <div class="magazijnVoorraad">
 

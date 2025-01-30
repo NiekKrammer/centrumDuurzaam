@@ -1,6 +1,9 @@
 <?php
 
 require_once 'form.php';
+require_once 'helpers.php';
+
+$helpers = new Helpers();
 
 class User {
     public $fields;
@@ -13,7 +16,7 @@ class User {
         $this->fields = $fields;
 
         // Initialize de database
-        include './classes/db.php';
+        include 'db.php';
 
         $db = new Database();
         $this->conn = $db->getConnection();
@@ -25,6 +28,13 @@ class User {
         echo "<script>document.getElementById('{$name}Error').innerText = '$message'</script>";
     }
 
+    // Check of diegene een admin is
+    public function checkAdmin($redirect) {
+        if (!isset($_SESSION["role"]) || empty($_SESSION["role"] || $_SESSION["role"] !== "directie")) {
+            header("Location: " . $redirect);
+        }
+    }
+
     // Redirect indien iemand logged in is
     public function redirectLoggedIn() {
         if (!empty($_SESSION["role"])) {
@@ -34,23 +44,13 @@ class User {
 
     // Een switch om naar de correcte pagina te sturen
     public function redirectRolePage($role) {
-        switch ($role) {
-            case 'directie':
-                header('Location: ./rollenPaginas/directiePagina.php');
-                exit;
-            case 'magazijn':
-                header('Location: ./rollenPaginas/magazijnMedewerkerPagina.php');
-                exit;
-            case 'winkelpersoneel':
-                header('Location: ./rollenPaginas/winkelpersoonPagina.php');
-                exit;
-            case 'chaffeur':
-                header('Location: ./rollenPaginas/chauffeurPagina.php');
-                exit;
-            default:
-                $_SESSION['error'] = "Onbekende rol: $role";
-                header('Location: ../index.php');
-                exit;
+        $roles = $helpers->getPageRoles();
+        if (array_key_exists($role, $roles)) {
+            header('Location: ' . $roles[$role]);
+        } else {
+            $_SESSION['error'] = "Onbekende rol: $role";
+            header('Location: ../index.php');
+            exit;
         }
     }
 
@@ -61,11 +61,18 @@ class User {
         return $dataSql->fetch();
     }
 
-    // Delete een account
-    public function deleteAccount($table, $where, $params) {
-        $dataSql = $this->conn->prepare("DELETE FROM " . $table . " WHERE " . $where);
-        $dataSql->execute($params);
-        return $dataSql->fetch();
+    // "Delete" een customer zijn account, zet active naar false
+    public function deleteCustomer($userID) {
+        // Zet het als inactive
+        $dataSql = $this->conn->prepare("UPDATE klant SET active = ? WHERE id = ?");
+        $dataSql->execute([false, $userID]);
+    }
+
+    // Delete het account van een werker
+    public function deleteWorker($userID) {
+        // Zet het als inactive
+        $dataSql = $this->conn->prepare("DELETE FROM accounts WHERE ID = ?");
+        $dataSql->execute([$userID]);
     }
 
     // Maak een speciale link en zet die in de database
@@ -170,7 +177,7 @@ class User {
 
     }
 
-    public function registerNewCustomer($postData, $setSession = true) {
+    public function registerNewCustomer($postData, $updateID = -1) {
         $isEmpty = false;
         
         // Loop door alle fields heen en check of ze leeg zijn

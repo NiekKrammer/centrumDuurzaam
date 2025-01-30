@@ -9,19 +9,13 @@
 </head>
 
 <body>
-    <nav>
-        <img src="../assets/logo.png" alt="logo">
-        <div class="roleTag_loguitBtn">
-            <span>Directie</span>
-            <a href="../logout.php">Uitloggen</a>
-        </div>
-    </nav>
+    <?php include '../includes/nav.php'; ?>
     
     <a href="directiePagina.php" style="margin: 8px;">&lt; Ga terug</a>
     <div class="klantenPagina">
 
         <h1>Klanten</h1>
-        <a href="../customer.php">Maak nieuwe klant</a>
+        <a class="nieuw" href="../rollenPaginas/customer.php">Maak nieuwe klant</a>
 
         <?php
         include_once '../classes/db.php';
@@ -52,19 +46,21 @@
 
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 extract($row);
-                // ! Dit werkt nog niet
-                $editLink = "../customer.php?action=edit&id=" . $id;
-                $deleteLink = "../customer.php?action=delete&id=" . $id;
-                echo "<tr>";
-                echo "<td>{$id}</td>";
-                echo "<td>{$naam}</td>";
-                echo "<td>{$adres}</td>";
-                echo "<td>{$plaats}</td>";
-                echo "<td>{$telefoon}</td>";
-                echo "<td>{$email}</td>";
-                echo "<th><form action='$editLink' method='get'><button type='submit'>EDIT</button></form></th>";
-                echo "<th><a href='$deleteLink'>DELETE</a></th>";
-                echo "</tr>";
+                $editLink = "./customer.php?action=edit&id=" . $id;
+                $deleteLink = "./customer.php?action=delete&id=" . $id;
+
+                if ($active) {
+                    echo "<tr>";
+                    echo "<td>{$id}</td>";
+                    echo "<td>{$naam}</td>";
+                    echo "<td>{$adres}</td>";
+                    echo "<td>{$plaats}</td>";
+                    echo "<td>{$telefoon}</td>";
+                    echo "<td>{$email}</td>";
+                    echo "<th><a href='$editLink'>EDIT</a></th>";
+                    echo "<th><a href='$deleteLink'>DELETE</a></th>";
+                    echo "</tr>";
+                }
             }
 
             echo "</table>";
