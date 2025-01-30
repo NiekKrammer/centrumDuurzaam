@@ -1,50 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
 
-<?php
-include_once '../classes/db.php';
-include_once '../models/Klant.php';
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../styles.css">
+    <title>Document</title>
+</head>
 
-// Instantiate database and klant object
-$database = new Database();
-$db = $database->getConnection();
+<body>
+    <nav>
+        <img src="../assets/logo.png" alt="logo">
+        <div class="roleTag_loguitBtn">
+            <span>Directie</span>
+            <a href="../logout.php">Uitloggen</a>
+        </div>
+    </nav>
+    
+    <a href="directiePagina.php" style="margin: 8px;">&lt; Ga terug</a>
+    <div class="klantenPagina">
 
-$klant = new Klant($db);
+        <h1>Klanten</h1>
+        <a href="../customer.php">Maak nieuwe klant</a>
 
-// Query klanten
-$stmt = $klant->getAllKlanten();
-$num = $stmt->rowCount();
+        <?php
+        include_once '../classes/db.php';
+        include_once '../models/Klant.php';
 
-if($num > 0) {
-    echo "<table border='1'>";
-    echo "<tr>";
-    echo "<th>ID</th>";
-    echo "<th>Naam</th>";
-    echo "<th>Adres</th>";
-    echo "<th>Plaats</th>";
-    echo "<th>Telefoon</th>";
-    echo "<th>Email</th>";
-    echo "<th>Edit</th>";
-    echo "<th>Delete</th>";
-    echo "</tr>";
+        // Instantiate database and klant object
+        $database = new Database();
+        $db = $database->getConnection();
 
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        extract($row);
-        // ! Dit werkt nog niet
-        $editLink = "../register-customer.php?action=edit&id=" . $id;
-        $deleteLink = "../register-customer.php?action=delete&id=" . $id;
-        echo "<tr>";
-        echo "<td>{$id}</td>";
-        echo "<td>{$naam}</td>";
-        echo "<td>{$adres}</td>";
-        echo "<td>{$plaats}</td>";
-        echo "<td>{$telefoon}</td>";
-        echo "<td>{$email}</td>";
-        echo "<th><form action='$editLink' method='get'><button type='submit'>EDIT</button></form></th>";
-        echo "<th><a href='$deleteLink'>DELETE</a></th>";
-        echo "</tr>";
-    }
+        $klant = new Klant($db);
 
-    echo "</table>";
-} else {
-    echo "<p>Geen klanten gevonden.</p>";
-}
-?>
+        // Query klanten
+        $stmt = $klant->getAllKlanten();
+        $num = $stmt->rowCount();
+
+        if ($num > 0) {
+            echo "<table border='1'>";
+            echo "<tr>";
+            echo "<th>ID</th>";
+            echo "<th>Naam</th>";
+            echo "<th>Adres</th>";
+            echo "<th>Plaats</th>";
+            echo "<th>Telefoon</th>";
+            echo "<th>Email</th>";
+            echo "<th>Edit</th>";
+            echo "<th>Delete</th>";
+            echo "</tr>";
+
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                extract($row);
+                // ! Dit werkt nog niet
+                $editLink = "../customer.php?action=edit&id=" . $id;
+                $deleteLink = "../customer.php?action=delete&id=" . $id;
+                echo "<tr>";
+                echo "<td>{$id}</td>";
+                echo "<td>{$naam}</td>";
+                echo "<td>{$adres}</td>";
+                echo "<td>{$plaats}</td>";
+                echo "<td>{$telefoon}</td>";
+                echo "<td>{$email}</td>";
+                echo "<th><form action='$editLink' method='get'><button type='submit'>EDIT</button></form></th>";
+                echo "<th><a href='$deleteLink'>DELETE</a></th>";
+                echo "</tr>";
+            }
+
+            echo "</table>";
+        } else {
+            echo "<p>Geen klanten gevonden.</p>";
+        }
+        ?>
+    </div>
+
+    <footer>
+        <p>© centrumDuurzaam</p>
+    </footer>
+
+</body>
+
+</html>

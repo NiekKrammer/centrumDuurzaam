@@ -120,7 +120,7 @@ nav {
   }
 
   & a {
-    background-color: #6b6b69;
+    background-color: #6d6e6e;
     color: #fff;
     border: none;
     padding: 4px 12px;
@@ -288,6 +288,29 @@ nav {
 /* --- bewerk artikel pagina --- */
 .bewerkCategorie {
   margin: 0 40px;
+}
+
+/* --- klanten pagina --- */
+.klantenPagina {
+  margin: 20px;
+}
+
+.klantenPagina h1 {
+  text-align: left;
+}
+
+.klantenPagina a {
+  background-color: #04ae9d;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.klantenPagina table {
+  width: 100%;
+  margin: 20px 0;
 }
 
 /* --- footer --- */

@@ -76,6 +76,7 @@ $categories = $magazijn->getCategories();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../styles.css" rel="stylesheet" type="text/css">
     <title>Artikelen Beheren</title>
+    
 </head>
 
 <body>
@@ -93,8 +94,9 @@ $categories = $magazijn->getCategories();
         <a href="directiePagina.php">&lt; Ga terug</a>
 
         <h1>Artikelen</h1>
-
-        <table border="1">
+        <input type="text" class="search_field" placeholder="Zoek naar..." onkeyup="searchTable()">
+        
+        <table border="1" class="artikelTabel">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -221,6 +223,7 @@ $categories = $magazijn->getCategories();
         <p>© centrumDuurzaam</p>
     </footer>
 
+    <script src="../script.js"></script>
 </body>
 
 </html>

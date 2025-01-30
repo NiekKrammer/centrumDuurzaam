@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./styles.css">
     <title>Login</title>
 </head>
 
@@ -12,9 +12,11 @@
     <nav>
         <img src="assets/logo.png" alt="logo">
         <div class="roleTag_loguitBtn">
+            <span>Directie</span>
+            <a href="logout.php">Uitloggen</a>
         </div>
     </nav>
-      <a href="rollenPaginas/directiePagina.php" style="margin: 10px;">&lt; Ga terug</a>
+    <a href="rollenPaginas/directiePagina.php">&lt; Ga terug</a>
 
     <div class="login-container">
         <!-- Laat text zien op basis van welke actie het is -->
@@ -31,9 +33,7 @@
             $user = new User();
 
             // Check of de user toegang heeft
-            if (empty($_SESSION["role"]) || $_SESSION["role"] != "directie") {
-                header("Location: index.php");
-            }
+            $user->checkAdmin("index.php");
 
             // Define wat custom fields
             $fields = [
@@ -57,27 +57,29 @@
                 // Pak de gebruikersnaam
                 $userData = $user->getEditData("Gebruikersnaam", "accounts", "ID = ?", [htmlspecialchars($_GET["id"])]);
                 if (empty($userData)) {
-                    header("Location: " . "register-worker.php");
+                    header("Location: worker.php");
                 }
 
                 // Verander de preset value van het username field
                 $fields[0]["value"] = $userData["Gebruikersnaam"];
-                // Delete wachtwoord field (kan niet veranderd worden)
+                // Wachtwoord is een andere pagina
                 unset($fields[1]);
                 // Update fields
                 $user->fields = $fields;
 
                 // Doe een delete indien de actie delete is
             } else if (isset($_GET["action"]) && $_GET["action"] == "delete") {
-                $user->deleteAccount("accounts", "ID = ?", [htmlspecialchars($_GET["id"])]);
-                header("Location: " . "register-worker.php");
+                $user->deleteAccount("accounts", "ID", htmlspecialchars($_GET["id"]));
+                header("Location: worker.php");
             }
 
             $user->createForm();
 
             ?>
-            <button type="submit" name="request" value="true">Wachtwoord vergeten?</button>
-            <form>
+        </form>
+        <?php if (isset($_GET["id"]) && !empty($_GET["id"])) {
+            echo "<a href='restore.php?id=" . $_GET["id"] . "'>Verander wachtwoord</a>";
+        } ?>
     </div>
 </body>
 
@@ -90,18 +92,6 @@ $helper = new Helpers();
 
 // Check of er is gepost
 if ($_POST) {
-    // Check of het een restore request is
-    if (!empty($_POST["username"]) && isset($_POST["request"])) {
-        // Check of het account bestaat
-        $dataSql = $user->conn->prepare("SELECT ID FROM accounts WHERE Gebruikersnaam = ?");
-        $dataSql->execute([$_POST["username"]]);
-        $gottenID = $dataSql->fetch();
-
-        // Maak een speciale link
-        if (!empty($gottenID)) {
-            echo "<a href='" . $user->createSpecialLink($gottenID["ID"]) . "'>Restore password link</a>";
-        }
-    }
 
     // Doe of een edit of een create
     if (!empty($_GET["id"])) {
