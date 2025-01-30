@@ -72,7 +72,7 @@ class User {
     public function deleteWorker($userID) {
         // Zet het als inactive
         $dataSql = $this->conn->prepare("DELETE FROM accounts WHERE ID = ?");
-        $dataSql->execute([false, $userID]);
+        $dataSql->execute([$userID]);
     }
 
     // Maak een speciale link en zet die in de database

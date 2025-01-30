@@ -23,7 +23,7 @@
         <div class="directieLinkDivs"><h2>Ritten</h2><p>Overzicht van de ritten planning</p><a class="directieLinkButton" href="./chauffeurPagina.php">Ga naar ritten</a></div>
         <div class="directieLinkDivs"><h2>Voorraad beheer</h2><p>Voorraad beheer overzicht</p><a class="directieLinkButton" href="./magazijnMedewerkerPagina.php">Ga naar voorraad beheer</a></div>
         <div class="directieLinkDivs"><h2>Klanten</h2><p>Overzicht van alle klanten</p><a class="directieLinkButton" href="./klantenPagina.php">Ga naar klanten</a></div>
-        <div class="directieLinkDivs"><h2>Medewerkers</h2><p>Medewerker accounts toevoegen</p><a class="directieLinkButton" href="./worker.php">Medewerkers toevoegen</a></div>
+        <div class="directieLinkDivs"><h2>Medewerkers</h2><p>Overzicht van alle medewerkers</p><a class="directieLinkButton" href="./personeelPagina.php">Ga naar medewerkers</a></div>
     </div>
 </body>
 </html>

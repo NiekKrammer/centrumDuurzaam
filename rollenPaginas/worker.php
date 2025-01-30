@@ -43,7 +43,7 @@
             // Pak de gebruikersnaam
             $userData = $user->getEditData("Gebruikersnaam", "accounts", "ID = ?", [htmlspecialchars($_GET["id"])]);
             if (empty($userData)) {
-                header("Location: ./rollenPaginas/worker.php");
+                header("Location: ./personeelPagina.php");
             }
             
             // Verander de preset value van het username field
@@ -55,8 +55,8 @@
             
             // Doe een delete indien de actie delete is
         } else if (isset($_GET["action"]) && $_GET["action"] == "delete") {
-            $user->deleteAccount(htmlspecialchars($_GET["id"]));
-            header("Location: ./rollenPaginas/klantenPagina.php");
+            $user->deleteWorker(htmlspecialchars($_GET["id"]));
+            header("Location: ./personeelPagina.php");
         }
         
         $user->createForm();

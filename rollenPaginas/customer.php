@@ -37,7 +37,7 @@
             // Check of er een account is
             $userData = $user->getEditData("naam, adres, plaats, telefoon, email", "klant", "id = ?", [htmlspecialchars($_GET["id"])]);
             if (empty($userData)) {
-                header("Location: customer.php");
+                header("Location: ./klantenPagina.php");
             }
 
             // Loop door de fields en automatisch vul in de velden
@@ -48,7 +48,7 @@
             // Delete het account indien dat de actie is
         } else if (isset($_GET["action"]) && $_GET["action"] == "delete") {
             $user->deleteCustomer(htmlspecialchars($_GET["id"]));
-            header("Location: rollenPaginas/klantenPagina.php");
+            header("Location: ./klantenPagina.php");
         }
 
         $user->fields = $fields;
