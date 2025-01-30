@@ -25,6 +25,12 @@
         $fields = [
             ["name" => "username", "formatted" => "Username", "label" => "Voer in uw username", "type" => "text"],
             ["name" => "password", "formatted" => "Wachtwoord", "label" => "Voer in uw wachtwoord", "type" => "text"],
+            ["name" => "blocked", "formatted" => "Blocked?", "label" => "Check of het blocked is", "html" => "
+            <label>Blocked?</label><label class='errorMessage' id='roleError'></label><br>
+            <select name='blocked' id='blocked-select'>
+            <option value='0'>Nee</option>
+             <option value='1'>Ja</option>
+            </select><br>"],
             ["name" => "role", "formatted" => "Rol", "label" => "Voer in een rol", "html" => "
             <label>Selecteer een rol</label><label class='errorMessage' id='roleError'></label><br>
             <select name='role' id='role-select'>

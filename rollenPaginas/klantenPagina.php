@@ -39,7 +39,7 @@
         $num = $stmt->rowCount();
 
         if ($num > 0) {
-            echo "<table border='1'>";
+            echo "<div class='table-scroll'><table border='1'>";
             echo "<tr>";
             echo "<th>ID</th>";
             echo "<th>Naam</th>";
@@ -70,7 +70,7 @@
                 }
             }
 
-            echo "</table>";
+            echo "</table></div>";
         } else {
             echo "<p>Geen klanten gevonden.</p>";
         }

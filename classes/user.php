@@ -83,8 +83,12 @@ class User {
     public function updateUserPassword($newPass, $restoreID) {
         $updateSql = $this->conn->prepare("UPDATE accounts SET Wachtwoord = ?, restore_id = ? WHERE restore_id = ?  ");
         $updateSql->execute([$newPass, "", $restoreID]);
+    }
 
-        return true;
+    public function getBlocked($userID) {
+        $dataSql = $this->conn->prepare("SELECT blocked FROM accounts WHERE id = ?");
+        $dataSql->execute([$userID]);
+        return $dataSql->fetch();
     }
 
     // Validate login velden voor login.php
@@ -104,9 +108,14 @@ class User {
         }
 
         // Pak alle data uit database
-        $loginSql = $this->conn->prepare("SELECT id, Wachtwoord, Rol FROM accounts WHERE Gebruikersnaam = ?");
+        $loginSql = $this->conn->prepare("SELECT id, Wachtwoord, Rol, blocked FROM accounts WHERE Gebruikersnaam = ?");
         $loginSql->execute([$_POST["username"]]);
         $newPassword = $loginSql->fetch();
+
+        if (intval($newPassword["blocked"]) === 1) {
+            $this->displayError("username", "Je bent geblokkeerd");
+            return;
+        }
 
         // Check of er uberhaupt een account is
         if (empty($newPassword)) {
@@ -155,8 +164,8 @@ class User {
         // Als updateid niet -1 is dan is dit een update actie 
         if ($updateID !== -1) {
             // Update database
-            $loginSql = $this->conn->prepare("UPDATE accounts SET Gebruikersnaam = ?, Rol = ? WHERE ID = ?");
-            $loginSql->execute([$username, $rol, intval($updateID)]);
+            $loginSql = $this->conn->prepare("UPDATE accounts SET Gebruikersnaam = ?, Rol = ?, blocked = ? WHERE ID = ?");
+            $loginSql->execute([$username, $rol, $_POST["blocked"], intval($updateID)]);
         } else {
             if (!empty($usernameCheck)) {
                 $this->displayError("username", "There is already an account with this username. Please choose a different name");

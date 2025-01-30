@@ -39,12 +39,13 @@
         $num = $stmt->rowCount();
 
         if ($num > 0) {
-            echo "<table border='1'>";
+            echo "<div class='table-scroll'><table border='1'>";
             echo "<tr>";
             echo "<th>ID</th>";
             echo "<th>Gebruikersnaam</th>";
             echo "<th>Rol</th>";
-            echo "<th>Is geverifieerd</th>";
+            echo "<th>Is geverifieerd?</th>";
+            echo "<th>Geblokkeerd?</th>";
             echo "<th>Edit</th>";
             echo "<th>Delete</th>";
             echo "</tr>";
@@ -55,18 +56,20 @@
                 $editLink = "./worker.php?action=edit&id=" . $ID;
                 $deleteLink = "./worker.php?action=delete&id=" . $ID;
                 $isVerified = $Is_geverifieerd ? "Geverifieerd" : "Niet geverifieerd";
+                $isBlocked = $blocked ? "Ja" : "Nee";
 
                 echo "<tr>";
                 echo "<td>{$ID}</td>";
                 echo "<td>{$Gebruikersnaam}</td>";
                 echo "<td>{$Rol}</td>";
                 echo "<td>{$isVerified}</td>";
+                echo "<td>{$isBlocked}</td>";
                 echo "<th><a href='$editLink'>EDIT</a></th>";
                 echo "<th><a href='$deleteLink'>DELETE</a></th>";
                 echo "</tr>";
             }
 
-            echo "</table>";
+            echo "</table></div>";
         } else {
             echo "<p>Geen personeel gevonden.</p>";
         }
