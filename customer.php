@@ -11,6 +11,7 @@
     <div class="login-container">
         <!-- Laat text zien op basis van welke actie het is -->
         <?php if (empty($_GET["id"])) { echo "<h2>Nieuw account</h2>";} else { echo "<h2>Edit klant ID " . $_GET["id"] . "</h2>";}?>
+        <a href="rollenPaginas/klantenPagina.php">Ga terug naar klanten overzicht</a>
         <form method="post">
         <?php
         
@@ -47,8 +48,8 @@
 
             // Delete het account indien dat de actie is
         } else if (isset($_GET["action"]) && $_GET["action"] == "delete") {
-            $user->deleteAccount("klant", "id = ?", [htmlspecialchars($_GET["id"])]);
-            header("Location: " . "worker.php");
+            $user->deleteAccount("klant", "id", htmlspecialchars($_GET["id"]));
+            header("Location: customer.php");
         }
 
         $user->fields = $fields;
@@ -56,7 +57,7 @@
         $user->createForm();
 
         ?>
-        <form>
+        </form>
     </div>
 </body>
 

@@ -26,27 +26,12 @@
         $user->createForm();
 
         ?>
-        <button type="submit" name="request" value="true">Wachtwoord vergeten?</button>
         </form>
 </div>
 </body>
 <?php
 
 if ($_POST) {
-    // Check of het een restore request is
-    if (!empty($_POST["username"]) && isset($_POST["request"])) {
-        // Check of het account bestaat
-        $dataSql = $user->conn->prepare("SELECT ID FROM accounts WHERE Gebruikersnaam = ?");
-        $dataSql->execute([$_POST["username"]]);
-        $gottenID = $dataSql->fetch();
-
-        // Maak een speciale link
-        if (!empty($gottenID)) {
-            echo "<a href='" . $user->createSpecialLink($gottenID["ID"]) . "'>Restore password link</a>";
-        }
-    
-    }
-
     $user->loginWorker($_POST);
 }
 

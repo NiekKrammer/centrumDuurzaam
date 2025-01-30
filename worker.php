@@ -19,9 +19,7 @@
         $user = new User();
 
         // Check of de user toegang heeft
-        if (!isset($_SESSION["role"]) || empty($_SESSION["role"] || $_SESSION["role"] != "directie")) {
-            header("Location: index.php");
-        }
+        $user->checkAdmin("index.php");
         
         // Define wat custom fields
         $fields = [
@@ -50,14 +48,14 @@
             
             // Verander de preset value van het username field
             $fields[0]["value"] = $userData["Gebruikersnaam"];
-            // Delete wachtwoord field (kan niet veranderd worden)
+            // Wachtwoord is een andere pagina
             unset($fields[1]);
             // Update fields
             $user->fields = $fields;
             
             // Doe een delete indien de actie delete is
         } else if (isset($_GET["action"]) && $_GET["action"] == "delete") {
-            $user->deleteAccount("accounts", "ID = ?", [htmlspecialchars($_GET["id"])]);
+            $user->deleteAccount("accounts", "ID", htmlspecialchars($_GET["id"]));
             header("Location: worker.php");
         }
         
@@ -65,6 +63,7 @@
 
         ?>
         </form>
+        <?php if (isset($_GET["id"]) && !empty($_GET["id"])) { echo "<a href='restore.php?id=" . $_GET["id"] . "'>Verander wachtwoord</a>"; } ?>
     </div>
 </body>
 

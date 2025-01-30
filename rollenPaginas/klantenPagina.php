@@ -33,6 +33,7 @@ if($num > 0) {
     echo "<th>Plaats</th>";
     echo "<th>Telefoon</th>";
     echo "<th>Email</th>";
+    echo "<th>Status</th>";
     echo "<th>Edit</th>";
     echo "<th>Delete</th>";
     echo "</tr>";
@@ -42,6 +43,7 @@ if($num > 0) {
 
         $editLink = "../customer.php?action=edit&id=" . $id;
         $deleteLink = "../customer.php?action=delete&id=" . $id;
+        $actief = $active === 1 ? "Actief" : "Verwijderd";
 
         echo "<tr>";
         echo "<td>{$id}</td>";
@@ -50,8 +52,11 @@ if($num > 0) {
         echo "<td>{$plaats}</td>";
         echo "<td>{$telefoon}</td>";
         echo "<td>{$email}</td>";
-        echo "<th><a href='$editLink'>EDIT</a></th>";
-        echo "<th><a href='$deleteLink'>DELETE</a></th>";
+        echo "<td>{$actief}</td>";
+        if ($active === 1) {
+            echo "<th><a href='$editLink'>EDIT</a></th>";
+            echo "<th><a href='$deleteLink'>DELETE</a></th>";
+        }
         echo "</tr>";
     }
 

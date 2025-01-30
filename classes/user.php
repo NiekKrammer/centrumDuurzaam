@@ -25,6 +25,13 @@ class User {
         echo "<script>document.getElementById('{$name}Error').innerText = '$message'</script>";
     }
 
+    // Check of diegene een admin is
+    public function checkAdmin($redirect) {
+        if (!isset($_SESSION["role"]) || empty($_SESSION["role"] || $_SESSION["role"] !== "directie")) {
+            header("Location: " . $redirect);
+        }
+    }
+
     // Redirect indien iemand logged in is
     public function redirectLoggedIn() {
         if (!empty($_SESSION["role"])) {
@@ -61,11 +68,11 @@ class User {
         return $dataSql->fetch();
     }
 
-    // Delete een account
-    public function deleteAccount($table, $where, $params) {
-        $dataSql = $this->conn->prepare("DELETE FROM " . $table . " WHERE " . $where);
-        $dataSql->execute($params);
-        return $dataSql->fetch();
+    // Delete een account, dit delete het account niet helemaal aangezien dit nodig is voor andere paginas.
+    public function deleteAccount($table, $where, $userID) {
+        // Zet het als inactive
+        $dataSql = $this->conn->prepare("UPDATE " . $table . " SET active = ? WHERE " . $where . " = ?");
+        $dataSql->execute([false, $userID]);
     }
 
     // Maak een speciale link en zet die in de database
