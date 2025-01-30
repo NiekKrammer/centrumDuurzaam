@@ -8,10 +8,10 @@
 </head>
 <body>
     <?php include '../includes/nav.php'; ?>
+    <a href="directiePagina.php" style="margin: 8px;">&lt; Ga terug</a>
     <div class="login-container">
         <!-- Laat text zien op basis van welke actie het is -->
         <?php if (empty($_GET["id"])) { echo "<h2>Nieuw account</h2>";} else { echo "<h2>Edit klant ID " . $_GET["id"] . "</h2>";}?>
-        <a href="rollenPaginas/klantenPagina.php">Ga terug naar klanten overzicht</a>
         <form method="post">
         <?php
         include '../classes/user.php';

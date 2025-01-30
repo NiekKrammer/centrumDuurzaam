@@ -32,6 +32,7 @@ $appointments = $planning->getAllAppointments();
 <body>
 
 <?php include '../includes/nav.php'; ?>
+<a href="directiePagina.php" style="margin: 10px; text-align: left;">&lt; Ga terug</a>
 
 <!-- <nav>
     <img src="../../assets/logo.png" alt="logo">
