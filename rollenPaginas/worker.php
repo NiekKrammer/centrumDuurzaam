@@ -63,7 +63,7 @@
 
         ?>
         </form>
-        <?php if (isset($_GET["id"]) && !empty($_GET["id"])) { echo "<a href='restore.php?id=" . $_GET["id"] . "'>Verander wachtwoord</a>"; } ?>
+        <?php if (isset($_GET["id"]) && !empty($_GET["id"])) { echo "<a href='./restore.php?id=" . $_GET["id"] . "'>Verander wachtwoord</a>"; } ?>
     </div>
 </body>
 
