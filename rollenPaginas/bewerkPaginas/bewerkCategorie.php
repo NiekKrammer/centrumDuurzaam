@@ -65,7 +65,7 @@ $database->disconnect();
         <?php if ($category): ?>
             <form action="bewerkCategorie.php" method="post">
                 <input type="hidden" name="id" value="<?php echo $category['id']; ?>">
-                <label for="name">Category Name:</label>
+                <label for="name">Categorie naam:</label>
                 <input type="text" name="name" id="name" value="<?php echo $category['categorie']; ?>" required>
                 <button type="submit" name="update">Update</button>
             </form>

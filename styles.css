@@ -331,6 +331,11 @@ nav {
   margin: 20px 0;
 }
 
+/* --- afspraaak wijzigen pagina --- */
+.afspraakWijzigenPagina {
+  margin: 10px;
+}
+
 /* --- footer --- */
 footer {
   text-align: center;
