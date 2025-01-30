@@ -40,7 +40,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_artikel'])) {
     $status_id = $_POST['status_id'];
 
     // Roep de updateArtikel functie aan
-    $magazijn->updateArtikel($id, $categorie_id, $naam, $prijs_ex_btw, $aantal, $locatie, $status_id, $directVerkoopbaar, $isKapot);
+    if ($magazijn->updateArtikel($id, $categorie_id, $naam, $prijs_ex_btw, $aantal, $locatie, $status_id, $directVerkoopbaar, $isKapot)    ) {
+        $_SESSION['success_message'] = "Artikel succesvol toegevoegd.";
+    } else {
+        $_SESSION['error_message'] = "Er is een fout opgetreden bij het toevoegen van het artikel.";
+    }
+
 }
 
 
@@ -82,7 +87,7 @@ $categories = $magazijn->getCategories();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../styles.css" rel="stylesheet" type="text/css">
     <title>Artikelen Beheren</title>
-    
+
 </head>
 
 <body>
@@ -100,8 +105,19 @@ $categories = $magazijn->getCategories();
         <a href="directiePagina.php">&lt; Ga terug</a>
 
         <h1>Artikelen</h1>
+        <?php
+        if (isset($_SESSION['success_message'])) {
+            echo '<div class="success_message">' . $_SESSION['success_message'] . '</div>';
+            unset($_SESSION['success_message']);
+        }
+
+        if (isset($_SESSION['error_message'])) {
+            echo '<div class="error_message">' . $_SESSION['error_message'] . '</div>';
+            unset($_SESSION['error_message']);
+        }
+        ?>
         <input type="text" class="search_field" placeholder="Zoek naar..." onkeyup="searchTable()">
-        
+
         <table border="1" class="artikelTabel">
             <thead>
                 <tr>
