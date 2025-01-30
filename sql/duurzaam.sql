@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 30 jan 2025 om 11:57
+-- Gegenereerd op: 30 jan 2025 om 15:51
 -- Serverversie: 10.4.32-MariaDB
 -- PHP-versie: 8.2.12
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 -- Database: `duurzaam`
 --
 
+CREATE DATABASE IF NOT EXISTS duurzaam;
+
 -- --------------------------------------------------------
 
 --
@@ -33,32 +35,33 @@ CREATE TABLE `accounts` (
   `Wachtwoord` varchar(255) NOT NULL,
   `Rol` varchar(255) NOT NULL,
   `Is_geverifieerd` tinyint(1) NOT NULL,
-  `restore_id` varchar(50) NOT NULL
+  `blocked` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `accounts`
 --
 
-INSERT INTO `accounts` (`ID`, `Gebruikersnaam`, `Wachtwoord`, `Rol`, `Is_geverifieerd`, `restore_id`) VALUES
-(1, 'directie', '$2y$10$z0O.NrpoBnlEh8k2gDhFCOLpW.lFcOVmNcsMt1IgvsmClyKUpAe7u', 'directie', 1, ''),
-(2, 'magazijn', '$2y$10$rL.wDBv3AuxwDNCTObfRj.Nlf8cKVH6FUc6JaqgMHK8RfZ7yRLB.y', 'magazijn', 1, ''),
-(3, 'winkelpersoneel', '$2y$10$GMjrUV0JiY5PS/ZsqdbuoOy7hxdQsAdCScoOo7qKumB2xTVyKZQze', 'winkelpersoneel', 1, ''),
-(4, 'chaffeur', '$2y$10$yixCQ.2zCg1Ew.oapsxzuu69FQYRVKHuWhjyBjnc8npAm9WRmypDW', 'chaffeur', 1, ''),
-(5, 'directie2', '$2y$10$4RpYktmWYKGswcaohDnXUeeh41YLrHXWT0gt1x0wLRxjY/ss4PSiq', 'directie', 1, ''),
-(6, 'directie3', '$2y$10$IH.G05vZAbXpqG8db9QgZelrmwNOOInHE4m8p0zSpxHQhWzKepgZi', 'directie', 1, ''),
-(7, 'magazijnmedewerker2', '$2y$10$Rz8tO6mmCXXK5tshFUNqnOugACAUEkMs6Q6zK1e5tlRStZQQzo0Ha', 'magazijnmedewerker', 1, ''),
-(8, 'magazijnmedewerker3', '$2y$10$yJGUyKcMEjDYZEMuo20QIO5ddWzOWyZXUjRQ1fBxhFtAo27bTolsC', 'magazijnmedewerker', 1, ''),
-(9, 'magazijnmedewerker4', '$2y$10$yaJ0OzreeL0QURFvA2wgaOx0zp6g6GUzhR8fCITfpWk3Wo0EJfhE.', 'magazijnmedewerker', 1, ''),
-(10, 'magazijnmedewerker5', '$2y$10$Gg6wNJK.CSruC2TKAR27c.km1EIY9U2rlmUmEnkzboH.B.v2NAdAq', 'magazijnmedewerker', 1, ''),
-(11, 'chaffeur2', '$2y$10$Z9rE1oZOXZ9SRZLnsYLR2.2Q0BIee1vY/n6G0QWjHqVsswBzaL9fS', 'chaffeur', 1, ''),
-(12, 'chaffeur3', '$2y$10$vExmqNnOnQzG1yIaW0f6H./Rb8DfPs2FrOxCN.Sx/lV4bTDpU8fgS', 'chaffeur', 1, ''),
-(13, 'chaffeur4', '$2y$10$d8I.ItMMbFXSnfRU1wIT9uTv.3bFjddA/wZ8cUhE1hxIubnRbhZkW', 'chaffeur', 1, ''),
-(14, 'chaffeur5', '$2y$10$bNMn../kdcQxbj3J3NToHOQ4NClDXO5xwKoPDNENuowCEYOlQJ/xC', 'chaffeur', 1, ''),
-(15, 'chaffeur6', '$2y$10$xgLQWyG3.qKf3NWxvcKQo.oDIjyTbDdsRMmGfbcdJ8G0mn9CvGoeK', 'chaffeur', 1, ''),
-(16, 'winkelpersoneel2', '$2y$10$yPewcZLR7SBq4ZYSwcU2.egIYQ6rK2HUE7eb6r1d9mpOE8FWsOMdK', 'winkelpersoneel', 1, ''),
-(17, 'winkelpersoneel3', '$2y$10$zPrTbcR6z2jUOJqalzqAq.bD1ipmvdoGKDJZoeKabwLScc.0aOaS6', 'directie', 1, ''),
-(18, 'piet', '$2y$10$zShyfzj6OzAfht1V4vOVz.yNg.LdXQRjsaNVQn0bCwUWa0oLSpNiS', 'winkelpersoneel', 1, '');
+INSERT INTO `accounts` (`ID`, `Gebruikersnaam`, `Wachtwoord`, `Rol`, `Is_geverifieerd`, `blocked`) VALUES
+(1, 'directie', '$2y$10$z0O.NrpoBnlEh8k2gDhFCOLpW.lFcOVmNcsMt1IgvsmClyKUpAe7u', 'directie', 1, 0),
+(2, 'magazijn', '$2y$10$rL.wDBv3AuxwDNCTObfRj.Nlf8cKVH6FUc6JaqgMHK8RfZ7yRLB.y', 'magazijn', 1, 0),
+(3, 'winkelpersoneel', '$2y$10$GMjrUV0JiY5PS/ZsqdbuoOy7hxdQsAdCScoOo7qKumB2xTVyKZQze', 'winkelpersoneel', 1, 0),
+(4, 'chaffeur', '$2y$10$yixCQ.2zCg1Ew.oapsxzuu69FQYRVKHuWhjyBjnc8npAm9WRmypDW', 'chaffeur', 1, 0),
+(5, 'directie2', '$2y$10$4RpYktmWYKGswcaohDnXUeeh41YLrHXWT0gt1x0wLRxjY/ss4PSiq', 'directie', 1, 0),
+(6, 'directie3', '$2y$10$IH.G05vZAbXpqG8db9QgZelrmwNOOInHE4m8p0zSpxHQhWzKepgZi', 'directie', 1, 0),
+(7, 'magazijnmedewerker2', '$2y$10$Rz8tO6mmCXXK5tshFUNqnOugACAUEkMs6Q6zK1e5tlRStZQQzo0Ha', 'magazijnmedewerker', 1, 0),
+(8, 'magazijnmedewerker3', '$2y$10$yJGUyKcMEjDYZEMuo20QIO5ddWzOWyZXUjRQ1fBxhFtAo27bTolsC', 'magazijnmedewerker', 1, 0),
+(9, 'magazijnmedewerker4', '$2y$10$yaJ0OzreeL0QURFvA2wgaOx0zp6g6GUzhR8fCITfpWk3Wo0EJfhE.', 'magazijnmedewerker', 1, 0),
+(10, 'magazijnmedewerker5', '$2y$10$Gg6wNJK.CSruC2TKAR27c.km1EIY9U2rlmUmEnkzboH.B.v2NAdAq', 'magazijnmedewerker', 1, 0),
+(11, 'chaffeur2', '$2y$10$Z9rE1oZOXZ9SRZLnsYLR2.2Q0BIee1vY/n6G0QWjHqVsswBzaL9fS', 'chaffeur', 1, 0),
+(12, 'chaffeur3', '$2y$10$vExmqNnOnQzG1yIaW0f6H./Rb8DfPs2FrOxCN.Sx/lV4bTDpU8fgS', 'chaffeur', 1, 0),
+(13, 'chaffeur4', '$2y$10$d8I.ItMMbFXSnfRU1wIT9uTv.3bFjddA/wZ8cUhE1hxIubnRbhZkW', 'chaffeur', 1, 0),
+(14, 'chaffeur5', '$2y$10$bNMn../kdcQxbj3J3NToHOQ4NClDXO5xwKoPDNENuowCEYOlQJ/xC', 'chaffeur', 1, 0),
+(15, 'chaffeur6', '$2y$10$xgLQWyG3.qKf3NWxvcKQo.oDIjyTbDdsRMmGfbcdJ8G0mn9CvGoeK', 'chaffeur', 1, 0),
+(16, 'winkelpersoneel2', '$2y$10$yPewcZLR7SBq4ZYSwcU2.egIYQ6rK2HUE7eb6r1d9mpOE8FWsOMdK', 'winkelpersoneel', 1, 0),
+(17, 'winkelpersoneel3', '$2y$10$zPrTbcR6z2jUOJqalzqAq.bD1ipmvdoGKDJZoeKabwLScc.0aOaS6', 'directie', 1, 0),
+(18, 'piet', '$2y$10$zShyfzj6OzAfht1V4vOVz.yNg.LdXQRjsaNVQn0bCwUWa0oLSpNiS', 'directie', 1, 1),
+(20, 'jaap', '$2y$10$tPLtD.T/KPYnaUC0UKvKXOPM/0pIHCxIrFXoeHZuWfTkpaSQQhpAS', 'directie', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -72,28 +75,30 @@ CREATE TABLE `artikel` (
   `categorie_id` int(11) DEFAULT NULL,
   `prijs_ex_btw` decimal(10,2) DEFAULT NULL,
   `directVerkoopbaar` varchar(10) NOT NULL DEFAULT 'nee',
-  `isKapot` varchar(10) NOT NULL DEFAULT 'nee'
+  `isKapot` varchar(10) NOT NULL DEFAULT 'nee',
+  `sold_amount` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `artikel`
 --
 
-INSERT INTO `artikel` (`id`, `naam`, `categorie_id`, `prijs_ex_btw`, `directVerkoopbaar`, `isKapot`) VALUES
-(1, 'Ikea kast', 6, 50.00, 'ja', 'ja'),
-(2, 'Spiegel', 6, 11.00, 'nee', 'nee'),
-(3, 'T-shirt', 2, 25.00, 'nee', 'nee'),
-(4, 'Tuinmeubel Set', 3, 100.00, 'nee', 'nee'),
-(5, 'Televisie', 1, 90.00, 'nee', 'nee'),
-(6, 'Jeans', 2, 40.00, 'nee', 'nee'),
-(7, 'Grasmaaier', 3, 165.00, 'nee', 'nee'),
-(8, 'Bank', 4, 75.00, 'nee', 'nee'),
-(9, 'Ledikant', 5, 40.00, 'nee', 'nee'),
-(34, 'Smart watch', 1, 45.00, 'nee', 'nee'),
-(47, 'ste', 15, 34.00, 'ja', 'ja'),
-(48, 'ste', 15, 34.00, 'ja', 'ja'),
-(49, 'ste', 15, 34.00, 'ja', 'ja'),
-(50, 'ste', 15, 34.00, 'ja', 'ja');
+INSERT INTO `artikel` (`id`, `naam`, `categorie_id`, `prijs_ex_btw`, `directVerkoopbaar`, `isKapot`, `sold_amount`) VALUES
+(1, 'Ikea kast', 6, 50.00, 'ja', 'ja', 0),
+(2, 'Spiegel', 6, 11.00, 'nee', 'nee', 0),
+(3, 'T-shirt', 2, 25.00, 'nee', 'nee', 5),
+(4, 'Tuinmeubel Set', 3, 100.00, 'nee', 'nee', 0),
+(5, 'Televisie', 1, 90.00, 'nee', 'nee', 0),
+(6, 'Jeans', 2, 40.00, 'nee', 'nee', 0),
+(7, 'Grasmaaier', 3, 165.00, 'nee', 'nee', 0),
+(8, 'Bank', 4, 75.00, 'nee', 'nee', 0),
+(9, 'Ledikant', 5, 40.00, 'nee', 'nee', 0),
+(34, 'Smart watch', 1, 45.00, 'nee', 'nee', 0),
+(47, 'ste', 15, 34.00, 'ja', 'ja', 0),
+(48, 'ste', 15, 34.00, 'ja', 'ja', 0),
+(49, 'ste', 15, 34.00, 'ja', 'ja', 0),
+(50, 'ste', 15, 34.00, 'ja', 'ja', 5),
+(52, 'test tes', 14, 10.00, 'ja', 'ja', 10);
 
 -- --------------------------------------------------------
 
@@ -125,7 +130,11 @@ INSERT INTO `categorie` (`id`, `categorie`) VALUES
 (12, 'bruingoed'),
 (13, 'glazen'),
 (14, 'boeken'),
-(15, 'niet toegestaande artikelen');
+(15, 'niet toegestaande artikelen'),
+(18, 'test'),
+(19, 'test'),
+(20, 'test'),
+(21, 'kaas man');
 
 -- --------------------------------------------------------
 
@@ -182,16 +191,17 @@ CREATE TABLE `planning` (
   `klant_id` int(11) DEFAULT NULL,
   `kenteken` varchar(255) NOT NULL,
   `ophalen_of_bezorgen` enum('ophalen','bezorgen') NOT NULL,
-  `afspraak_op` datetime NOT NULL
+  `afspraak_op` datetime NOT NULL,
+  `is_bezorgd` tinytext NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `planning`
 --
 
-INSERT INTO `planning` (`id`, `artikel_id`, `klant_id`, `kenteken`, `ophalen_of_bezorgen`, `afspraak_op`) VALUES
-(1, 1, 1, 'EF-456-GH', 'bezorgen', '2025-02-01 10:00:00'),
-(2, 2, 2, 'AB-123-CDS', 'ophalen', '2025-02-02 11:00:00');
+INSERT INTO `planning` (`id`, `artikel_id`, `klant_id`, `kenteken`, `ophalen_of_bezorgen`, `afspraak_op`, `is_bezorgd`) VALUES
+(3, 3, 13, 'AB-123-CD', 'bezorgen', '2025-01-17 12:01:00', '0'),
+(4, 3, 8, 'AB-123-CDS', 'ophalen', '2025-01-16 14:50:00', '0');
 
 -- --------------------------------------------------------
 
@@ -245,7 +255,8 @@ INSERT INTO `voorraad` (`id`, `artikel_id`, `locatie`, `aantal`, `status_id`, `i
 (26, 47, 'Locatie I', 34, 1, '0000-00-00 00:00:00'),
 (27, 48, 'Locatie I', 34, 1, '0000-00-00 00:00:00'),
 (28, 49, 'Locatie I', 34, 1, '0000-00-00 00:00:00'),
-(29, 50, 'Locatie I', 34, 1, '0000-00-00 00:00:00');
+(29, 50, 'Locatie I', 1, 1, '0000-00-00 00:00:00'),
+(31, 52, 'Locatie J', 1, 1, '0000-00-00 00:00:00');
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -306,19 +317,19 @@ ALTER TABLE `voorraad`
 -- AUTO_INCREMENT voor een tabel `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT voor een tabel `artikel`
 --
 ALTER TABLE `artikel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT voor een tabel `categorie`
 --
 ALTER TABLE `categorie`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT voor een tabel `klant`
@@ -330,7 +341,7 @@ ALTER TABLE `klant`
 -- AUTO_INCREMENT voor een tabel `planning`
 --
 ALTER TABLE `planning`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT voor een tabel `status`
@@ -342,7 +353,7 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT voor een tabel `voorraad`
 --
 ALTER TABLE `voorraad`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- Beperkingen voor geëxporteerde tabellen
