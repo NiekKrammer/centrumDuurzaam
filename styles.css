@@ -294,6 +294,20 @@ nav {
   margin: 0 40px;
 }
 
+.artikelBewerkForm {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  margin: auto;
+  background-color: #d3d1d169;
+  padding: 0 20px 20px 20px;
+  border-radius: 10px;
+
+  & input,select {
+    margin-bottom: 10px;
+  }
+}
+
 /* --- klanten pagina --- */
 .klantenPagina {
   margin: 20px;

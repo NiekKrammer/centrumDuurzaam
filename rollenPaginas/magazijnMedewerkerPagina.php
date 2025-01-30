@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require '../classes/db.php';
 require '../models/Magazijn.php';
 
@@ -20,7 +22,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['create_artikel'])) {
     $isKapot = $_POST['isKapot'];
 
     // Roep de createArtikel functie aan
-    $magazijn->createArtikel($naam, $categorie_id, $prijs_ex_btw, $aantal, $locatie, $directVerkoopbaar, $isKapot);
+    if ($magazijn->createArtikel($naam, $categorie_id, $prijs_ex_btw, $aantal, $locatie, $directVerkoopbaar, $isKapot)) {
+        $_SESSION['success_message'] = "Artikel succesvol toegevoegd.";
+    } else {
+        $_SESSION['error_message'] = "Er is een fout opgetreden bij het toevoegen van het artikel.";
+    }
 }
 
 // Bijwerken artikel
