@@ -97,19 +97,9 @@ $helpers->checkAccess(["directie", "magazijn"], "../../login.php");
             <input type="number" id="aantal" step="1" name="aantal" value="<?php echo htmlspecialchars($artikel['aantal'] ?? ''); ?>" placeholder="Aantal" required>
             
             <label for="locatie">Locatie:</label>
-            <select id="locatie" name="locatie" required>
-            <option value="">Selecteer Locatie</option>
-            <option value="Locatie A" <?php echo ($artikel['locatie'] == 'Locatie A') ? 'selected' : ''; ?>>Locatie A</option>
-            <option value="Locatie B" <?php echo ($artikel['locatie'] == 'Locatie B') ? 'selected' : ''; ?>>Locatie B</option>
-            <option value="Locatie C" <?php echo ($artikel['locatie'] == 'Locatie C') ? 'selected' : ''; ?>>Locatie C</option>
-            <option value="Locatie D" <?php echo ($artikel['locatie'] == 'Locatie D') ? 'selected' : ''; ?>>Locatie D</option>
-            <option value="Locatie E" <?php echo ($artikel['locatie'] == 'Locatie E') ? 'selected' : ''; ?>>Locatie E</option>
-            <option value="Locatie F" <?php echo ($artikel['locatie'] == 'Locatie F') ? 'selected' : ''; ?>>Locatie F</option>
-            <option value="Locatie G" <?php echo ($artikel['locatie'] == 'Locatie G') ? 'selected' : ''; ?>>Locatie G</option>
-            <option value="Locatie H" <?php echo ($artikel['locatie'] == 'Locatie H') ? 'selected' : ''; ?>>Locatie H</option>
-            <option value="Locatie I" <?php echo ($artikel['locatie'] == 'Locatie I') ? 'selected' : ''; ?>>Locatie I</option>
-            </select>
             
+            <?php echo $helpers->getLocationsHtml($artikel['locatie']); ?>
+                        
             <label for="status">Status:</label>
             <select id="status" name="status" required>
             <option value="">Selecteer Status</option>

@@ -130,18 +130,7 @@ $categories = $magazijn->getCategories();
             </select>
             <input type="number" step="0.01" name="prijs_ex_btw" placeholder="Prijs (ex BTW)" required>
             <input type="number" name="aantal" placeholder="Aantal" required>
-            <select name="locatie" required>
-                <option value="">Selecteer Locatie</option>
-                <option value="Locatie A">Locatie A</option>
-                <option value="Locatie B">Locatie B</option>
-                <option value="Locatie C">Locatie C</option>
-                <option value="Locatie D">Locatie D</option>
-                <option value="Locatie E">Locatie E</option>
-                <option value="Locatie F">Locatie F</option>
-                <option value="Locatie G">Locatie G</option>
-                <option value="Locatie H">Locatie H</option>
-                <option value="Locatie I">Locatie I</option>
-            </select>
+            <?php echo $helpers->getLocationsHtml(); ?>
             <select name="directVerkoopbaar" required>
                 <option value="">Direct Verkoopbaar</option>
                 <option value="ja">Ja</option>

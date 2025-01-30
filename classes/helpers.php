@@ -37,6 +37,27 @@ class Helpers {
         }
     }
 
+    public function getLocationsHtml($compare = "") {
+        $start = "<select id='locatie' name='locatie' required>";
+        $locations = ["Selecteer Locatie", "Locatie A", "Locatie B", "Locatie C", "Locatie D", "Locatie E", "Locatie F", "Locatie G", "Locatie H", "Locatie I", "Locatie J", "Magazijn A", "Magazijn B", "Magazijn C"];
+
+        for ($i = 0; $i < count($locations); $i++) {
+            $location = $locations[$i];
+            if ($compare === $location) {
+                $start .= "<option value='$location' selected>$location</option>";
+            } else {
+                if ($i !== 0) {
+                    $start .= "<option value='$location'>$location</option>";
+                } else {
+                    $start .= "<option value=''>$location</option>";
+                }
+            }
+        }
+        $start .= "</select>";
+
+        return $start;
+    }
+
     // Pak de page roles en paginas
     public function getPageRoles() {
         return [
