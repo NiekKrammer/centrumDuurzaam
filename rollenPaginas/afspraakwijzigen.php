@@ -34,7 +34,7 @@ include '../classes/helpers.php';
 
 $helpers = new Helpers();
     
-$helpers->checkAccess(["directie", "chauffeur"], "../login.php");
+$helpers->checkAccess(["directie", "chauffeur", "winkelpersoneel"], "../login.php");
 
 ?>
 

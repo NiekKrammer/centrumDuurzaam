@@ -24,7 +24,8 @@ class Planning
                     p.ophalen_of_bezorgen  -- Voeg dit veld toe aan de selectie
                 FROM planning p
                 JOIN klant k ON p.klant_id = k.id  -- Verbindt de klant via klant_id
-                JOIN artikel a ON p.artikel_id = a.id";
+                JOIN artikel a ON p.artikel_id = a.id
+                ORDER BY id DESC";
 
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();

@@ -29,7 +29,7 @@ include '../classes/helpers.php';
 
 $helpers = new Helpers();
     
-$helpers->checkAccess(["directie", "chauffeur"], "../login.php");
+$helpers->checkAccess(["directie", "chauffeur", "winkelpersoneel"], "../login.php");
 
 $db->disconnect();
 ?>
@@ -54,7 +54,7 @@ $db->disconnect();
             <?php foreach ($klanten as $klant): ?>
                 <option value="<?= $klant['id'] ?>"><?= htmlspecialchars($klant['naam']) ?></option>
             <?php endforeach; ?>
-        </select>
+        </select><br>
         
         <label for="artikel_id">Artikel:</label>
         <select name="artikel_id" required>
@@ -62,7 +62,7 @@ $db->disconnect();
             <?php foreach ($artikelen as $artikel): ?>
                 <option value="<?= $artikel['id'] ?>"><?= htmlspecialchars($artikel['naam']) ?></option>
             <?php endforeach; ?>
-        </select>
+        </select><br>
         
         <label for="kenteken">kenteken</label>
 
@@ -70,12 +70,12 @@ $db->disconnect();
   <option value="AB-123-CD">AB-123-CD</option>
   <option value="EF-456-GH">EF-456-GH</option>
   <option value="AB-123-CDS">AB-123-CDS</option>
-</select>
+</select><br>
         <label for="ophalen_of_bezorgen">Ophalen of bezorgen:</label>
         <select name="ophalen_of_bezorgen" required>
             <option value="ophalen">Ophalen</option>
             <option value="bezorgen">Bezorgen</option>
-        </select>
+        </select><br>
         
         <label for="afspraak_op">Afspraakdatum:</label>
         <input type="datetime-local" name="afspraak_op" required>

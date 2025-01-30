@@ -99,14 +99,6 @@ $categories = $magazijn->getCategories();
 <body>
 
     <?php include '../includes/nav.php'; ?>
-    <!-- <nav> -->
-        <!-- <img src="../assets/logo.png" alt="logo"> -->
-        <!-- <div class="roleTag_loguitBtn">
-            <span>Magazijn</span>
-            <a href="../logout.php">Uitloggen</a>
-        </div> -->
-    <!-- </nav> -->
-
     <div class="magazijnVoorraad">
 
         <a href="directiePagina.php">&lt; Ga terug</a>
@@ -123,8 +115,49 @@ $categories = $magazijn->getCategories();
             unset($_SESSION['error_message']);
         }
         ?>
-        <input type="text" class="search_field" placeholder="Zoek naar..." onkeyup="searchTable()">
 
+        <!-- Artikel toevoegen -->
+        <h2>Artikel toevoegen</h2>
+        <form action="" method="post">
+            <input type="text" name="naam" placeholder="Naam" required>
+            <select name="categorie_id" required>
+                <option value="">Selecteer Categorie</option>
+                <?php
+                foreach ($categories as $categorie) {
+                    echo '<option value="' . htmlspecialchars($categorie['id']) . '">' . htmlspecialchars($categorie['naam']) . '</option>';
+                }
+                ?>
+            </select>
+            <input type="number" step="0.01" name="prijs_ex_btw" placeholder="Prijs (ex BTW)" required>
+            <input type="number" name="aantal" placeholder="Aantal" required>
+            <select name="locatie" required>
+                <option value="">Selecteer Locatie</option>
+                <option value="Locatie A">Locatie A</option>
+                <option value="Locatie B">Locatie B</option>
+                <option value="Locatie C">Locatie C</option>
+                <option value="Locatie D">Locatie D</option>
+                <option value="Locatie E">Locatie E</option>
+                <option value="Locatie F">Locatie F</option>
+                <option value="Locatie G">Locatie G</option>
+                <option value="Locatie H">Locatie H</option>
+                <option value="Locatie I">Locatie I</option>
+            </select>
+            <select name="directVerkoopbaar" required>
+                <option value="">Direct Verkoopbaar</option>
+                <option value="ja">Ja</option>
+                <option value="nee">Nee</option>
+            </select>
+            <select name="isKapot" required>
+                <option value="">Is Kapot</option>
+                <option value="ja">Ja</option>
+                <option value="nee">Nee</option>
+            </select>
+            <button type="submit" name="create_artikel" class="addBtn">Voeg Artikel Toe</button>
+        </form>
+
+        <input style="margin-top: 25px" type="text" class="search_field" placeholder="Zoek naar..." onkeyup="searchTable()">
+
+        <div class="table-scroll">
         <table border="1" class="artikelTabel">
             <thead>
                 <tr>
@@ -168,48 +201,18 @@ $categories = $magazijn->getCategories();
                 <?php } ?>
             </tbody>
         </table>
+        </div>
 
-        <!-- Artikel toevoegen -->
-        <h2>Artikel toevoegen</h2>
+        <!-- Categorie toevoegen formulier -->
+        <h2>Categorie toevoegen</h2>
         <form action="" method="post">
             <input type="text" name="naam" placeholder="Naam" required>
-            <select name="categorie_id" required>
-                <option value="">Selecteer Categorie</option>
-                <?php
-                foreach ($categories as $categorie) {
-                    echo '<option value="' . htmlspecialchars($categorie['id']) . '">' . htmlspecialchars($categorie['naam']) . '</option>';
-                }
-                ?>
-            </select>
-            <input type="number" step="0.01" name="prijs_ex_btw" placeholder="Prijs (ex BTW)" required>
-            <input type="number" name="aantal" placeholder="Aantal" required>
-            <select name="locatie" required>
-                <option value="">Selecteer Locatie</option>
-                <option value="Locatie A">Locatie A</option>
-                <option value="Locatie B">Locatie B</option>
-                <option value="Locatie C">Locatie C</option>
-                <option value="Locatie D">Locatie D</option>
-                <option value="Locatie E">Locatie E</option>
-                <option value="Locatie F">Locatie F</option>
-                <option value="Locatie G">Locatie G</option>
-                <option value="Locatie H">Locatie H</option>
-                <option value="Locatie I">Locatie I</option>
-            </select>
-            <select name="directVerkoopbaar" required>
-                <option value="">Direct Verkoopbaar</option>
-                <option value="ja">Ja</option>
-                <option value="nee">Nee</option>
-            </select>
-            <select name="isKapot" required>
-                <option value="">Is Kapot</option>
-                <option value="ja">Ja</option>
-                <option value="nee">Nee</option>
-            </select>
-            <button type="submit" name="create_artikel" class="addBtn">Voeg Artikel Toe</button>
+            <button type="submit" name="create_categorie" class="addBtn">Voeg Categorie Toe</button>
         </form>
 
         <!-- Categorieën beheren -->
         <h2 id="categorymanage">Categorieën Beheren</h2>
+        <div class="table-scroll">
         <table border="1">
             <thead>
                 <tr>
@@ -239,13 +242,7 @@ $categories = $magazijn->getCategories();
                 <?php } ?>
             </tbody>
         </table>
-
-        <!-- Categorie toevoegen formulier -->
-        <h2>Categorie toevoegen</h2>
-        <form action="" method="post">
-            <input type="text" name="naam" placeholder="Naam" required>
-            <button type="submit" name="create_categorie" class="addBtn">Voeg Categorie Toe</button>
-        </form>
+        </div>
     </div>
 
     <footer>

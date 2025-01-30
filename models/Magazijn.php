@@ -165,7 +165,8 @@ class Magazijn
                 FROM artikel a
                 JOIN categorie c ON a.categorie_id = c.id
                 LEFT JOIN voorraad v ON a.id = v.artikel_id
-                LEFT JOIN status s ON v.status_id = s.id";
+                LEFT JOIN status s ON v.status_id = s.id
+                ORDER BY id DESC";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -268,7 +269,7 @@ class Magazijn
     // Haal categorieën op
     public function getCategories()
     {
-        $sql = "SELECT id, categorie AS naam FROM categorie";
+        $sql = "SELECT id, categorie AS naam FROM categorie ORDER BY id DESC";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -14,7 +14,7 @@ include '../classes/helpers.php';
 
 $helpers = new Helpers();
     
-$helpers->checkAccess(["directie", "chauffeur"], "../login.php");
+$helpers->checkAccess(["directie", "chauffeur", "winkelpersoneel"], "../login.php");
 ?>
 
 <!DOCTYPE html>
@@ -46,16 +46,18 @@ $helpers->checkAccess(["directie", "chauffeur"], "../login.php");
     <div class="container-overzicht">
         <table>
         <tr>
-    <th>Klant Naam</th>
-    <th>Adres</th>
-    <th>Naam artikel</th>
-    <th>Afspraakdatum</th>
-    <th>Ophalen of bezorgen</th>
-    <th>Kenteken</th>
-    <th>Actie</th>
-</tr>
+            <th>ID</th>
+            <th>Klant Naam</th>
+            <th>Adres</th>
+            <th>Naam artikel</th>
+            <th>Afspraakdatum</th>
+            <th>Ophalen of bezorgen</th>
+            <th>Kenteken</th>
+            <th>Actie</th>
+        </tr>
 <?php foreach ($appointments as $appointment): ?>
     <tr>
+        <td><?= htmlspecialchars($appointment['id']) ?></td>
         <td><?= htmlspecialchars($appointment['klant_naam']) ?></td>
         <td><?= htmlspecialchars($appointment['adres']) ?></td>
         <td><?= htmlspecialchars($appointment['artikel_naam']) ?></td>

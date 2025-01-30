@@ -13,7 +13,7 @@ class Personeel {
     }
 
     public function getAllPersoneel() {
-        $query = "SELECT * FROM " . $this->table_name;
+        $query = "SELECT * FROM " . $this->table_name . " ORDER BY ID DESC";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
