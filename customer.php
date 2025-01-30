@@ -63,8 +63,6 @@
 
 <?php
 
-include './classes/helpers.php';
-
 $helper = new Helpers();
 
 // Doe een edit of create

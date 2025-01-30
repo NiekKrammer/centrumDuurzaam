@@ -1,5 +1,5 @@
 <nav>
-    <link href="../styles.css" rel="stylesheet">
+    <!-- <link href="../styles.css" rel="stylesheet"> -->
     <?php
 
     @session_start();

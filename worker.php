@@ -69,9 +69,6 @@
 
 <?php
 
-
-include './classes/helpers.php';
-
 $helper = new Helpers();
 
 // Check of er is gepost
