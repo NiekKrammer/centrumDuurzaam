@@ -31,16 +31,13 @@ $appointments = $planning->getAllAppointments();
 </head>
 <body>
 
-<?php include '../includes/nav.php'; ?>
-<a href="directiePagina.php" style="margin: 10px; text-align: left;">&lt; Ga terug</a>
-
-<!-- <nav>
+<nav>
     <img src="../../assets/logo.png" alt="logo">
     <div class="roleTag_loguitBtn">
         <span>Magazijn</span>
         <a href="../logout.php">Uitloggen</a>
     </div>
-</nav> -->
+</nav>
 
 <div class="container">
     <h1>Welkom Chauffeur</h1>
@@ -54,7 +51,7 @@ $appointments = $planning->getAllAppointments();
     <th>Adres</th>
     <th>Naam artikel</th>
     <th>Afspraakdatum</th>
-    <th>Optie</th>
+    <th>Ophalen of bezorgen</th>
     <th>Kenteken</th>
     <th>Actie</th>
 </tr>
@@ -68,7 +65,7 @@ $appointments = $planning->getAllAppointments();
         <td><?= htmlspecialchars($appointment['kenteken']) ?></td>
         <td>
             <a href='afspraakwijzigen.php?id=<?= $appointment["id"] ?>' class='btn'>Wijzigen</a>
-            <a href='planning.php?delete_id=<?= $appointment["id"] ?>' class='btn btn-danger' onclick="return confirm('Weet je zeker dat je deze afspraak wilt verwijderen?');">Verwijderen</a>
+            <a href='../classes/planning.php?delete_id=<?= $appointment["id"] ?>' class='btn btn-danger' onclick="return confirm('Weet je zeker dat je deze afspraak wilt verwijderen?');">Verwijderen</a>
         </td>
     </tr>
 <?php endforeach; ?>
