@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./styles.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Klanten</h2>
+    <a href="../customer.php">Maak nieuwe klant</a>
 
 <?php
 include_once '../classes/db.php';
@@ -28,9 +39,10 @@ if($num > 0) {
 
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
-        // ! Dit werkt nog niet
-        $editLink = "../register-customer.php?action=edit&id=" . $id;
-        $deleteLink = "../register-customer.php?action=delete&id=" . $id;
+
+        $editLink = "../customer.php?action=edit&id=" . $id;
+        $deleteLink = "../customer.php?action=delete&id=" . $id;
+
         echo "<tr>";
         echo "<td>{$id}</td>";
         echo "<td>{$naam}</td>";
@@ -38,7 +50,7 @@ if($num > 0) {
         echo "<td>{$plaats}</td>";
         echo "<td>{$telefoon}</td>";
         echo "<td>{$email}</td>";
-        echo "<th><form action='$editLink' method='get'><button type='submit'>EDIT</button></form></th>";
+        echo "<th><a href='$editLink'>EDIT</a></th>";
         echo "<th><a href='$deleteLink'>DELETE</a></th>";
         echo "</tr>";
     }
@@ -48,3 +60,6 @@ if($num > 0) {
     echo "<p>Geen klanten gevonden.</p>";
 }
 ?>
+   
+</body>
+</html>

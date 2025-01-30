@@ -19,7 +19,7 @@
         $user = new User();
 
         // Check of de user toegang heeft
-        if (empty($_SESSION["role"] || $_SESSION["role"] != "directie")) {
+        if (!isset($_SESSION["role"]) || empty($_SESSION["role"] || $_SESSION["role"] != "directie")) {
             header("Location: index.php");
         }
         
@@ -45,7 +45,7 @@
             // Pak de gebruikersnaam
             $userData = $user->getEditData("Gebruikersnaam", "accounts", "ID = ?", [htmlspecialchars($_GET["id"])]);
             if (empty($userData)) {
-                header("Location: " . "register-worker.php");
+                header("Location: worker.php");
             }
             
             // Verander de preset value van het username field
@@ -58,14 +58,13 @@
             // Doe een delete indien de actie delete is
         } else if (isset($_GET["action"]) && $_GET["action"] == "delete") {
             $user->deleteAccount("accounts", "ID = ?", [htmlspecialchars($_GET["id"])]);
-            header("Location: " . "register-worker.php");
+            header("Location: worker.php");
         }
         
         $user->createForm();
 
         ?>
-        <button type="submit" name="request" value="true">Wachtwoord vergeten?</button>
-        <form>
+        </form>
     </div>
 </body>
 
@@ -78,19 +77,6 @@ $helper = new Helpers();
 
 // Check of er is gepost
 if ($_POST) {
-    // Check of het een restore request is
-    if (!empty($_POST["username"]) && isset($_POST["request"])) {
-        // Check of het account bestaat
-        $dataSql = $user->conn->prepare("SELECT ID FROM accounts WHERE Gebruikersnaam = ?");
-        $dataSql->execute([$_POST["username"]]);
-        $gottenID = $dataSql->fetch();
-
-        // Maak een speciale link
-        if (!empty($gottenID)) {
-            echo "<a href='" . $user->createSpecialLink($gottenID["ID"]) . "'>Restore password link</a>";
-        }
-    
-    }
 
     // Doe of een edit of een create
     if (!empty($_GET["id"])) {

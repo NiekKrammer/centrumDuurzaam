@@ -19,7 +19,7 @@
         $user = new User();
 
         // Check of de gebruiker toegang heeft
-        if (empty($_SESSION["role"])) {
+        if (!isset($_SESSION["role"]) || empty($_SESSION["role"])) {
             header("Location: index.php");
         }
 
@@ -33,11 +33,11 @@
         ];
 
         // Als de actie edit is update de data
-        if ($_GET["action"] == "edit") {
+        if (isset($_GET["action"]) && $_GET["action"] == "edit") {
             // Check of er een account is
             $userData = $user->getEditData("naam, adres, plaats, telefoon, email", "klant", "id = ?", [htmlspecialchars($_GET["id"])]);
-            if (!empty($userData)) {
-                header("Location: register-customer.php");
+            if (empty($userData)) {
+                header("Location: customer.php");
             }
 
             // Loop door de fields en automatisch vul in de velden
@@ -48,7 +48,7 @@
             // Delete het account indien dat de actie is
         } else if (isset($_GET["action"]) && $_GET["action"] == "delete") {
             $user->deleteAccount("klant", "id = ?", [htmlspecialchars($_GET["id"])]);
-            header("Location: " . "register-worker.php");
+            header("Location: " . "worker.php");
         }
 
         $user->fields = $fields;
