@@ -64,7 +64,6 @@ $db->disconnect();
   <option value="EF-456-GH">EF-456-GH</option>
   <option value="AB-123-CDS">AB-123-CDS</option>
 </select>
-        
         <label for="ophalen_of_bezorgen">Ophalen of bezorgen:</label>
         <select name="ophalen_of_bezorgen" required>
             <option value="ophalen">Ophalen</option>

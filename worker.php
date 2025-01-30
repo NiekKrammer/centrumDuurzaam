@@ -55,8 +55,8 @@
             
             // Doe een delete indien de actie delete is
         } else if (isset($_GET["action"]) && $_GET["action"] == "delete") {
-            $user->deleteAccount("accounts", "ID", htmlspecialchars($_GET["id"]));
-            header("Location: worker.php");
+            $user->deleteAccount(htmlspecialchars($_GET["id"]));
+            header("Location: rollenPaginas/klantenPagina.php");
         }
         
         $user->createForm();

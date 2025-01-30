@@ -68,10 +68,17 @@ class User {
         return $dataSql->fetch();
     }
 
-    // Delete een account, dit delete het account niet helemaal aangezien dit nodig is voor andere paginas.
-    public function deleteAccount($table, $where, $userID) {
+    // "Delete" een customer zijn account, zet active naar false
+    public function deleteCustomer($userID) {
         // Zet het als inactive
-        $dataSql = $this->conn->prepare("UPDATE " . $table . " SET active = ? WHERE " . $where . " = ?");
+        $dataSql = $this->conn->prepare("UPDATE klant SET active = ? WHERE id = ?");
+        $dataSql->execute([false, $userID]);
+    }
+
+    // Delete het account van een werker
+    public function deleteWorker($userID) {
+        // Zet het als inactive
+        $dataSql = $this->conn->prepare("DELETE FROM accounts WHERE ID = ?");
         $dataSql->execute([false, $userID]);
     }
 
@@ -177,7 +184,7 @@ class User {
 
     }
 
-    public function registerNewCustomer($postData, $setSession = true) {
+    public function registerNewCustomer($postData, $updateID = -1) {
         $isEmpty = false;
         
         // Loop door alle fields heen en check of ze leeg zijn

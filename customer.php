@@ -48,8 +48,8 @@
 
             // Delete het account indien dat de actie is
         } else if (isset($_GET["action"]) && $_GET["action"] == "delete") {
-            $user->deleteAccount("klant", "id", htmlspecialchars($_GET["id"]));
-            header("Location: customer.php");
+            $user->deleteCustomer(htmlspecialchars($_GET["id"]));
+            header("Location: rollenPaginas/klantenPagina.php");
         }
 
         $user->fields = $fields;
@@ -57,7 +57,7 @@
         $user->createForm();
 
         ?>
-        </form>
+        <form>
     </div>
 </body>
 
