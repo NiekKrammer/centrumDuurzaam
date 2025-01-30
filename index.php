@@ -22,9 +22,9 @@ session_start();
     </nav>
 
     <div class="herosection">
-            <h1>Welkom bij Centrum Duurzaam</h1>
-            <p>Bij Centrum Duurzaam geloven we in de impact van hergebruik en duurzaamheid. Samen zorgen we ervoor dat alles soepel verloopt, van voorraadbeheer en logistiek tot klantservice. Jullie inzet maakt het verschil!</p>
-            <a href="login.php">Naar inloggen</a>
+        <h1>Welkom bij Centrum Duurzaam</h1>
+        <p>Bij Centrum Duurzaam geloven we in de impact van hergebruik en duurzaamheid. Samen zorgen we ervoor dat alles soepel verloopt, van voorraadbeheer en logistiek tot klantservice. Jullie inzet maakt het verschil!</p>
+        <a href="login.php">Naar inloggen</a>
     </div>
 
     <footer>
