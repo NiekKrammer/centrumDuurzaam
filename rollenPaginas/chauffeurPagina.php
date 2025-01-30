@@ -54,6 +54,7 @@ $appointments = $planning->getAllAppointments();
     <th>Adres</th>
     <th>Naam artikel</th>
     <th>Afspraakdatum</th>
+    <th>Optie</th>
     <th>Kenteken</th>
     <th>Actie</th>
 </tr>
@@ -63,6 +64,7 @@ $appointments = $planning->getAllAppointments();
         <td><?= htmlspecialchars($appointment['adres']) ?></td>
         <td><?= htmlspecialchars($appointment['artikel_naam']) ?></td>
         <td><?= htmlspecialchars($appointment['afspraak_op']) ?></td>
+        <td><?= htmlspecialchars($appointment['ophalen_of_bezorgen']) ?></td>
         <td><?= htmlspecialchars($appointment['kenteken']) ?></td>
         <td>
             <a href='afspraakwijzigen.php?id=<?= $appointment["id"] ?>' class='btn'>Wijzigen</a>
