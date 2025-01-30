@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="../styles.css">
     <title>Restore account</title>
 </head>
 <body>
@@ -22,7 +22,7 @@
 
 if ($_POST) {
     // Update the password by using the restore ID
-    include './classes/user.php';
+    include '../classes/user.php';
 
     $user = new User();
 
@@ -33,6 +33,6 @@ if ($_POST) {
     } else {
         $user->updateUserPassword(password_hash($_POST["password"],PASSWORD_DEFAULT), $_GET["id"]);
     
-        echo "Your password has been changed!<a href='login.php'>Go to login</a>";
+        echo "Your password has been changed!<a href='../login.php'>Go to login</a>";
     }
 }
