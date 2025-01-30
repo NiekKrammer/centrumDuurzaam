@@ -46,7 +46,6 @@
 
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 extract($row);
-
                 $editLink = "./customer.php?action=edit&id=" . $id;
                 $deleteLink = "./customer.php?action=delete&id=" . $id;
 
