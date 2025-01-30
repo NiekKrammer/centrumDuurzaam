@@ -201,7 +201,7 @@ class Magazijn
             $stmt2->execute();
 
             // Verkrijg de juiste status_id op basis van de status
-            $status_id = $this->getStatusIdByStatus($status); // Voeg deze methode toe
+            $status_id = $this->getStatusIdByStatus($status);
 
             // Update de status tabel (status_id)
             $query3 = "UPDATE voorraad

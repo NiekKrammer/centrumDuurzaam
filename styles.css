@@ -283,6 +283,10 @@ nav {
     margin-left: 3px;
   }
 
+  & .search_field {
+    margin-bottom: 8px;
+  }
+
 }
 
 /* --- bewerk artikel pagina --- */
