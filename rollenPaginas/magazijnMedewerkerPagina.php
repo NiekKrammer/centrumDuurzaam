@@ -8,6 +8,12 @@ $database = new Database();
 $db = $database->getConnection();
 $magazijn = new Magazijn($db);
 
+include '../classes/helpers.php';
+
+$helpers = new Helpers();
+
+$helpers->checkAccess(["directie", "magazijn"], "../login.php");
+
 // Verboden artikelen array
 $verboden_artikelen = ['wapens', 'motorvoertuigen', 'industriele zonnebanken', 'klein gevaarlijk afval', 'verf', 'asbesthoudende producten', 'ink', 'autobanden', 'etenswaren', 'dranken over datum'];
 

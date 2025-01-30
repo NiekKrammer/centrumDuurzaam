@@ -39,6 +39,12 @@ if (isset($_GET['id'])) {
     exit;
 }
 
+include '../../classes/helpers.php';
+
+$helpers = new Helpers();
+    
+$helpers->checkAccess(["directie", "magazijn"], "../../login.php");
+
 $database->disconnect();
 ?>
 

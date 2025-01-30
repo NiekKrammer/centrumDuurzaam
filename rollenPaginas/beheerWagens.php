@@ -17,13 +17,14 @@
 </head>
 <body>
 
-<nav>
-    <img src="../assets/logo.png" alt="logo">
-    <div class="roleTag_loguitBtn">
-        <span>Magazijn</span>
-        <a href="../logout.php">Uitloggen</a>
-    </div>
-</nav>
+<?php 
+include '../includes/nav.php'; 
+
+$helpers = new Helpers();
+    
+$helpers->checkAccess(["directie"], "../login.php");
+
+?>
 
  <h2>Overzicht wagens</h2>
 

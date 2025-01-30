@@ -9,6 +9,12 @@ if (isset($_GET['delete_id'])) {
 }
 
 $appointments = $planning->getAllAppointments();
+
+include '../classes/helpers.php';
+
+$helpers = new Helpers();
+    
+$helpers->checkAccess(["directie", "chauffeur"], "../login.php");
 ?>
 
 <!DOCTYPE html>

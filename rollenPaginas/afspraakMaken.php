@@ -24,6 +24,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error = "Er is iets misgegaan bij het maken van de afspraak.";
     }
 }
+
+include '../classes/helpers.php';
+
+$helpers = new Helpers();
+    
+$helpers->checkAccess(["directie", "chauffeur"], "../login.php");
+
 $db->disconnect();
 ?>
 

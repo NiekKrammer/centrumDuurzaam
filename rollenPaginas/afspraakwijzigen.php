@@ -29,6 +29,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header("Location: chauffeurPagina.php");
     exit;
 }
+
+include '../classes/helpers.php';
+
+$helpers = new Helpers();
+    
+$helpers->checkAccess(["directie", "chauffeur"], "../login.php");
+
 ?>
 
 <!DOCTYPE html>

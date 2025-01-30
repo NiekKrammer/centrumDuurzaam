@@ -9,7 +9,14 @@
 </head>
 
 <body>
-    <?php include '../includes/nav.php'; ?>
+    <?php 
+    include '../includes/nav.php'; 
+
+    $helpers = new Helpers();
+
+    $helpers->checkAccess(["directie"], "../login.php");
+    
+    ?>
     
     <a href="directiePagina.php" style="margin: 8px;">&lt; Ga terug</a>
     <div class="klantenPagina">

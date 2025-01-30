@@ -63,6 +63,8 @@
 <?php
 
 $helper = new Helpers();
+    
+$helpers->checkAccess(["directie", "winkelpersoneel"], "../login.php");
 
 // Doe een edit of create
 if ($_POST) {

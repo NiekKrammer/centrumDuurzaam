@@ -31,7 +31,7 @@
             <option value='directie'>Directie</option>
             <option value='magazijn'>Magazijn</option>
             <option value='winkelpersoneel'>winkelpersoneel</option>
-            <option value='chaffeur'>Chauffeur</option>
+            <option value='chauffeur'>Chauffeur</option>
             </select>"],
         ];
 

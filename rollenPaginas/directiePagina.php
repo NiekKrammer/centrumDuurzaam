@@ -13,9 +13,9 @@
     
     include '../includes/nav.php';
 
-    if (!isset($_SESSION["role"]) || empty($_SESSION["role"] || $_SESSION["role"] !== "directie")) {
-        header("Location: ../login.php");
-    }
+    $helpers = new Helpers();
+
+    $helpers->checkAccess(["directie"], "../login.php");
 
     ?>
 

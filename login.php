@@ -9,12 +9,8 @@
 <body>
 
 <nav>
-        <img src="assets/logo.png" alt="logo">
-        <div class="roleTag_loguitBtn">
-            <span>Magazijn</span>
-            <a href="logout.php">Uitloggen</a>
-        </div>
-    </nav>
+    <img src="assets/logo.png" alt="logo">
+</nav>
 
     <div class="login-container">
         <h2>Login</h2>
@@ -39,8 +35,8 @@
 </div>
 
 <footer>
-        <p>© 2025 Centrum Duurzaam. Alle rechten voorbehouden.</p>
-    </footer>
+    <p>© 2025 Centrum Duurzaam. Alle rechten voorbehouden.</p>
+</footer>
 </body>
 <?php
 

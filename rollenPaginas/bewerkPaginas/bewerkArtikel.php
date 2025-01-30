@@ -44,6 +44,12 @@ if (isset($_GET['id'])) {
     echo "Geen artikel ID opgegeven.";
     exit;
 }
+
+include '../../classes/helpers.php';
+
+$helpers = new Helpers();
+    
+$helpers->checkAccess(["directie", "magazijn"], "../../login.php");
 ?>
 
 <!DOCTYPE html>
