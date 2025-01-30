@@ -340,7 +340,7 @@ nav {
 footer {
   text-align: center;
   margin-top: auto;
-  padding: 6px;
+  padding: 50px 0 5px 0;
 }
 
 .errorMessage {

@@ -43,3 +43,9 @@
             <a href='index.php?delete_id=<?= $appointment["id"] ?>' class='btn btn-danger' onclick="return confirm('Weet je zeker dat je deze afspraak wilt verwijderen?');">Verwijderen</a>
         </td>
 </tr>
+
+<footer>
+        <p>© 2025 Centrum Duurzaam. Alle rechten voorbehouden.</p>
+    </footer>
+
+</body>

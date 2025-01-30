@@ -25,5 +25,9 @@
         <div class="directieLinkDivs"><h2>Klanten</h2><p>Beheer hier alle klanten/gebruikers</p><a class="directieLinkButton" href="./klantenPagina.php">Ga naar klanten</a></div>
         <div class="directieLinkDivs"><h2>Medewerkers</h2><p>Overzicht van alle medewerkers</p><a class="directieLinkButton" href="./personeelPagina.php">Ga naar medewerkers</a></div>
     </div>
+
+    <footer>
+        <p>© 2025 Centrum Duurzaam. Alle rechten voorbehouden.</p>
+    </footer>
 </body>
 </html>
