@@ -3,17 +3,17 @@
 require_once 'form.php';
 require_once 'helpers.php';
 
-$helpers = new Helpers();
-
 class User {
     public $fields;
     public $conn;
+    public $helpers;
 
     // Include de form trait voor de createform functie
     use FormTrait;
 
     function __construct($fields = []) {
         $this->fields = $fields;
+        $this->helpers = new Helpers();
 
         // Initialize de database
         include 'db.php';
@@ -44,7 +44,7 @@ class User {
 
     // Een switch om naar de correcte pagina te sturen
     public function redirectRolePage($role) {
-        $roles = $helpers->getPageRoles();
+        $roles = $this->helpers->getPageRoles();
         if (array_key_exists($role, $roles)) {
             header('Location: ' . $roles[$role]);
         } else {
@@ -66,6 +66,8 @@ class User {
         // Zet het als inactive
         $dataSql = $this->conn->prepare("UPDATE klant SET active = ? WHERE id = ?");
         $dataSql->execute([false, $userID]);
+
+        $this->helpers->redirect("./klantenPagina.php");
     }
 
     // Delete het account van een werker
@@ -73,17 +75,8 @@ class User {
         // Zet het als inactive
         $dataSql = $this->conn->prepare("DELETE FROM accounts WHERE ID = ?");
         $dataSql->execute([$userID]);
-    }
 
-    // Maak een speciale link en zet die in de database
-    public function createSpecialLink($userID) {
-        $uniqueID = uniqid();
-        $specialLink = $_SERVER["SERVER_NAME"] . "/" . explode("/", $_SERVER["REQUEST_URI"])[1] . "/restore.php?id=" . $uniqueID;
-
-        $updateSql = $this->conn->prepare("UPDATE accounts SET restore_id = ? WHERE ID = ?");
-        $updateSql->execute([$uniqueID, $userID]);
-
-        return $specialLink;
+        $this->helpers->redirect("./personeelPagina.php");
     }
 
     // Update de password van de user op basis van het restore id
@@ -175,6 +168,7 @@ class User {
             $loginSql->execute([$username, $password, $rol, 1]);
         }
 
+        $this->helpers->redirect("./personeelPagina.php");
     }
 
     public function registerNewCustomer($postData, $updateID = -1) {
@@ -213,5 +207,7 @@ class User {
             $loginSql = $this->conn->prepare("INSERT INTO klant (naam, adres, plaats, telefoon, email) VALUES (?, ?, ?, ?, ?)");
             $loginSql->execute([$_POST["name"], $_POST["address"], $_POST["place"], $_POST["telephone"], $email]);
         }
+
+        $this->helpers->redirect("./klantenPagina.php");
     }
 }

@@ -2,12 +2,12 @@
 
 class Helpers {
     public function redirect($location) {
-        header("location: " + $location);
+        header("location: " . $location);
     }
 
     public function checkRoleAccess($role, $location) {
         if ($role !== $_SESSION["role"]) {
-            header("location: " + $location);
+            header("location: " . $location);
         }
     }
 
