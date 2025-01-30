@@ -9,10 +9,7 @@
 </head>
 <body>
     
-	<nav>
-		<img src="../assets/logo.png" alt="logo">
-        <a href="../logout.php">Uitloggen</a>
-	</nav>
+	<?php include '../includes/nav.php'; ?>
 
     <div id="directieContainer">
         <div class="directieLinkDivs"><h2>Ritten</h2><p>Overzicht van de ritten planning</p><a class="directieLinkButton" href="./chauffeurPagina.php">Ga naar ritten</a></div>

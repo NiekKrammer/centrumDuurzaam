@@ -21,4 +21,13 @@ class Helpers {
 
         return false;
     }
+
+    public function getPageRoles() {
+        return [
+        "directie" => "./rollenPaginas/directiePagina.php", 
+        "magazijn" => "./rollenPaginas/magazijnMedewerkerPagina.php", 
+        "winkelpersoneel" => "./rollenPaginas/winkelpersoonPagina.php",
+        "chaffeur" => "./rollenPaginas/chauffeurPagina.php"
+        ];
+    }
 }

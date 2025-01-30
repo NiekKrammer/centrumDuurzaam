@@ -31,13 +31,15 @@ $appointments = $planning->getAllAppointments();
 </head>
 <body>
 
-<nav>
+<?php include '../includes/nav.php'; ?>
+
+<!-- <nav>
     <img src="../../assets/logo.png" alt="logo">
     <div class="roleTag_loguitBtn">
         <span>Magazijn</span>
         <a href="../logout.php">Uitloggen</a>
     </div>
-</nav>
+</nav> -->
 
 <div class="container">
     <h1>Welkom Chauffeur</h1>

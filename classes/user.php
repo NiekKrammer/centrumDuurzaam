@@ -1,6 +1,9 @@
 <?php
 
 require_once 'form.php';
+require_once 'helpers.php';
+
+$helpers = new Helpers();
 
 class User {
     public $fields;
@@ -41,23 +44,13 @@ class User {
 
     // Een switch om naar de correcte pagina te sturen
     public function redirectRolePage($role) {
-        switch ($role) {
-            case 'directie':
-                header('Location: ./rollenPaginas/directiePagina.php');
-                exit;
-            case 'magazijn':
-                header('Location: ./rollenPaginas/magazijnMedewerkerPagina.php');
-                exit;
-            case 'winkelpersoneel':
-                header('Location: ./rollenPaginas/winkelpersoonPagina.php');
-                exit;
-            case 'chaffeur':
-                header('Location: ./rollenPaginas/chauffeurPagina.php');
-                exit;
-            default:
-                $_SESSION['error'] = "Onbekende rol: $role";
-                header('Location: ../index.php');
-                exit;
+        $roles = $helpers->getPageRoles();
+        if (array_key_exists($role, $roles)) {
+            header('Location: ' . $roles[$role]);
+        } else {
+            $_SESSION['error'] = "Onbekende rol: $role";
+            header('Location: ../index.php');
+            exit;
         }
     }
 
